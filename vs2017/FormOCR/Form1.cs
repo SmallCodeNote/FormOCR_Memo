@@ -6,14 +6,21 @@ using System.Linq;
 using System.Windows.Forms;
 
 using OpenCvSharp;
+using OpenCvSharp.Extensions;
 
 namespace FormOCR
 {
     public partial class Form1 : Form
     {
+        string thisExeDirPath;
+        string langPath;
+        string lngStr = "eng";
+
         public Form1()
         {
             InitializeComponent();
+            thisExeDirPath = Path.GetDirectoryName(Application.ExecutablePath);
+            langPath = Path.Combine(thisExeDirPath, "traineddata");
         }
 
         private void button_OpenFile_Click(object sender, EventArgs e)
@@ -27,7 +34,6 @@ namespace FormOCR
 
             Mat edges = new Mat();
             Cv2.Canny(gray, edges, 1, 100, 3);
-            Cv2.ImWrite("edges.png", edges);
 
             Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3));
             Cv2.Dilate(edges, edges, kernel);
@@ -57,6 +63,8 @@ namespace FormOCR
 
             Random rnd = new Random();
 
+            var croppedImages = new List<Mat>();
+
             for (int i = 0; i < rects.Count; i++)
             {
                 int B = (int)(rnd.NextDouble() * 255.0);
@@ -67,11 +75,24 @@ namespace FormOCR
                 Cv2.DrawContours(imgColor, rects, i, color, 2);
                 Cv2.PutText(imgColor, i.ToString(), rects[i][0], HersheyFonts.HersheySimplex, 0.8, color, 3);
 
+                Rect boundingRect = Cv2.BoundingRect(rects[i]);
+                Mat cropped = new Mat(img, boundingRect);
+                croppedImages.Add(cropped);
+
                 Console.WriteLine("rect:\n" + rects[i]);
+
+
+
             }
 
             string outPath = AppendIndexToFileName(ofd.FileName);
             Cv2.ImWrite(outPath, imgColor);
+
+            for (int i = 0; i < croppedImages.Count; i++)
+            {
+                Console.WriteLine(RunOCR(BitmapConverter.ToBitmap(croppedImages[i])));
+            }
+
         }
 
         public string AppendIndexToFileName(string filePath)
@@ -88,9 +109,6 @@ namespace FormOCR
 
             return Path.Combine(directory, $"{fileName}{index}{extension}");
         }
-
-        string langPath;
-        string lngStr = "jpn";
 
         public string RunOCR(System.Drawing.Bitmap img)
         {
