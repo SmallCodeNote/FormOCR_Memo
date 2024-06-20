@@ -80,6 +80,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.Contracts">
+      <Version>10.0.26100.1</Version>
+    </PackageReference>
     <PackageReference Include="OpenCvSharp4.Extensions">
       <Version>4.10.0.20240616</Version>
     </PackageReference>
