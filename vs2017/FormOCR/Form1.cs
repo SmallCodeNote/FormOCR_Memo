@@ -3,65 +3,35 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 using Windows.Data.Pdf;
 
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
-
+using WinFormStringCnvClass;
 namespace FormOCR
 {
     public partial class Form1 : Form
     {
         string thisExeDirPath;
-        string langPath;
-        string lngStr = "eng";
+        FindRectAndOCR OCR;
 
         public Form1()
         {
             InitializeComponent();
             thisExeDirPath = Path.GetDirectoryName(Application.ExecutablePath);
-            langPath = Path.Combine(thisExeDirPath, "traineddata");
+
+            OCR = new FindRectAndOCR();
+            OCR.LangPath = Path.Combine(thisExeDirPath, "traineddata");
         }
 
-        public string AppendIndexToFileName(string filePath, int pageIndex)
+        public string[] GenerateItems(int count)
         {
-            string directory = Path.GetDirectoryName(filePath);
-            string fileName = Path.GetFileNameWithoutExtension(filePath);
-            string extension = Path.GetExtension(filePath);
-            int index = 1;
-
-            while (File.Exists(Path.Combine(directory, $"{fileName}_{pageIndex}_{index}{extension}")))
-            {
-                index++;
-            }
-            return Path.Combine(directory, $"{fileName}_{pageIndex}_{index}{extension}");
-        }
-
-        public string RunOCR(System.Drawing.Bitmap img, string whiteList = "")
-        {
-            Tesseract.BitmapToPixConverter cvt = new Tesseract.BitmapToPixConverter();
-
-            using (var tesseract = new Tesseract.TesseractEngine(langPath, lngStr))
-            {
-                if (whiteList != "") tesseract.SetVariable("tessedit_char_whitelist", whiteList);
-
-                var pix = cvt.Convert(img);
-                Tesseract.Page page = tesseract.Process(pix);
-                return (page.GetText());
-            }
-        }
-
-        public string[] RunOCR(System.Drawing.Bitmap[] imgs, string whiteList = "")
-        {
-            List<string> cellString = new List<string>();
-
-            foreach (var img in imgs)
-            {
-                cellString.Add(RunOCR(img, whiteList));
-            }
-            return cellString.ToArray();
+            string[] items = new string[count];
+            for (int i = 1; i <= count; i++) { items[i-1] = i.ToString(); }
+            return items;
         }
 
         private void pictureBoxUpdate(PictureBox p, System.Drawing.Bitmap img)
@@ -70,106 +40,14 @@ namespace FormOCR
             p.Image = img;
         }
 
-
-        List<Point[]> CellRects;
-        List<string> CellText;
-        List<System.Drawing.Bitmap> CellImage;
-        string TargetFilePath = "";
-        int TargetPageIndex = 0;
-
-        public void FindCellRectsAndRunOCR(System.Drawing.Bitmap bitmap, string FileName, int pageIndex = 0, int ContourAreaMax = 1500)
-        {
-            Point[][] contours;
-            HierarchyIndex[] hierarchy;
-
-            using (Mat img = BitmapConverter.ToMat(bitmap))
-            {
-                using (Mat gray = new Mat())
-                using (Mat edges = new Mat())
-                using (Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3)))
-                {
-                    Cv2.CvtColor(img, gray, ColorConversionCodes.BGR2GRAY);
-                    Cv2.Canny(gray, edges, 1, 100, 3);
-                    Cv2.Dilate(edges, edges, kernel);
-                    Cv2.FindContours(edges, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
-                }
-
-                CellRects = new List<Point[]>();
-                CellImage = new List<System.Drawing.Bitmap>();
-                CellText = new List<string>();
-
-                for (int i = 0; i < contours.Length; i++)
-                {
-                    if (Cv2.ContourArea(contours[i]) < ContourAreaMax) continue;
-                    if (hierarchy[i].Next == -1) continue;
-
-                    RotatedRect rect = Cv2.MinAreaRect(contours[i]);
-                    Point[] rectPoints = Cv2.BoxPoints(rect).Select(p => new Point((int)p.X, (int)p.Y)).ToArray();
-                    CellRects.Add(rectPoints);
-                }
-
-                CellRects = CellRects.OrderBy(r => r[0].Y).ThenBy(r => r[0].X).ToList();
-
-                for (int i = 0; i < CellRects.Count; i++)
-                {
-                    Rect boundingRect = Cv2.BoundingRect(CellRects[i]);
-                    using (Mat cropped = new Mat(img, boundingRect))
-                    {
-                        System.Drawing.Bitmap bmp = BitmapConverter.ToBitmap(cropped);
-                        CellImage.Add(bmp);
-                        CellText.Add(RunOCR(bmp, toolStripTextBox_WhiteList.Text));
-                    }
-                }
-            }
-        }
-
-        private System.Drawing.Bitmap drawPage(System.Drawing.Bitmap bitmap)
-        {
-            Mat img = BitmapConverter.ToMat(bitmap);
-            Mat imgColor = new Mat();
-            Cv2.CvtColor(img, imgColor, ColorConversionCodes.BGRA2BGR);
-
-            Random rnd = new Random();
-
-            var croppedImages = new List<Mat>();
-
-            for (int i = 0; i < CellRects.Count; i++)
-            {
-                int B = (int)(rnd.NextDouble() * 255.0);
-                int G = (int)(rnd.NextDouble() * 255.0);
-                int R = (int)(rnd.NextDouble() * 255.0);
-
-                Scalar color = new Scalar(B, G, R);
-                Cv2.DrawContours(imgColor, CellRects, i, color, 2);
-
-                Point bottomLeft = CellRects[i].OrderByDescending(p => p.Y).ThenBy(p => p.X).First();
-
-                Cv2.PutText(imgColor, i.ToString() + ":" + CellText[i], bottomLeft, HersheyFonts.HersheySimplex, 0.8, color, 2);
-
-                Rect boundingRect = Cv2.BoundingRect(CellRects[i]);
-                Mat cropped = new Mat(img, boundingRect);
-                croppedImages.Add(cropped);
-
-                Console.WriteLine("CellRects: " + CellRects[i]);
-            }
-            return BitmapConverter.ToBitmap(imgColor);
-        }
-
         private async void toolStripButton_OpenFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() != DialogResult.OK) return;
-            TargetFilePath = ofd.FileName;
+            OCR.TargetFilePath = ofd.FileName;
 
-
-            if (Path.GetExtension(ofd.FileName) == "pdf")
+            if (Path.GetExtension(ofd.FileName) == ".pdf")
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "TEXT|*.txt";
-                sfd.FileName = Path.GetFileNameWithoutExtension(TargetFilePath);
-
-                if (toolStripComboBox_RunMode.Text != "Check" && sfd.ShowDialog() != DialogResult.OK) return;
-
                 using (var pdfStream = File.OpenRead(ofd.FileName))
                 using (var winrtStream = pdfStream.AsRandomAccessStream())
                 {
@@ -181,36 +59,51 @@ namespace FormOCR
                         using (var outStream = memStream.AsRandomAccessStream())
                         {
                             await page.RenderToStreamAsync(outStream);
-                            System.Drawing.Bitmap img = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(memStream);
-                            FindCellRectsAndRunOCR(img, ofd.FileName, (int)i);
-                            pictureBoxUpdate(pictureBox_Image, drawPage(img));
-                        }
 
-                        if (toolStripComboBox_RunMode.Text == "Check")
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            SaveCells(sfd.FileName, TargetFilePath,(int)i);
+                            System.Drawing.Bitmap img = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(memStream);
+                            OCR.SrcImageList.Add(img);
                         }
                     }
+                    
                 }
             }
             else
             {
-                TargetPageIndex = 0;
-
+                OCR.TargetPageIndex = 0;
                 System.Drawing.Bitmap img = new System.Drawing.Bitmap(ofd.FileName);
-                FindCellRectsAndRunOCR(img, ofd.FileName);
-                pictureBoxUpdate(pictureBox_Image, drawPage(img));
+                OCR.SrcImageList.Add(img);
             }
+            
+            toolStripComboBox_PageSelector.Items.Clear();
+            string[] items = GenerateItems(OCR.SrcImageList.Count);
+            toolStripComboBox_PageSelector.Items.AddRange(items);
+            toolStripComboBox_PageSelector.Text = items[0];
+            toolStripLabel_PageMax.Text = " / " + OCR.SrcImageList.Count.ToString();
+
+            if (toolStripComboBox_PageSelector.SelectedIndex < 0) return;
+
+            OCR.FindCellRects(toolStripComboBox_PageSelector.SelectedIndex);
+            pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.SrcImageList[0]));
+
+            toolStripComboBox_BackgroundImageType.Items.Clear();
+
+            string[] Items = OCR.ProcessNameList.ToArray();
+            toolStripComboBox_BackgroundImageType.Items.AddRange(Items);
+            toolStripComboBox_BackgroundImageType.Text = (string)Items[0];
+            
+            if (toolStripComboBox_RunMode.Text == "Check") return;
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "TEXT|*.txt";
+            sfd.FileName = Path.GetFileNameWithoutExtension(OCR.TargetFilePath);
+
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+            
         }
-
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Form1_Resize(sender, e);
             splitContainer1.SplitterDistance = splitContainer1.Width - 200;
 
             if (File.Exists(Path.Combine(thisExeDirPath, "toolStripTextBox_IndexSelect.txt")))
@@ -218,22 +111,54 @@ namespace FormOCR
 
             if (File.Exists(Path.Combine(thisExeDirPath, "toolStripTextBox_WhiteList.txt")))
                 toolStripTextBox_WhiteList.Text = File.ReadAllText(Path.Combine(thisExeDirPath, "toolStripTextBox_WhiteList.txt"));
+
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "TEXT|*.txt";
+            if (false && ofd.ShowDialog() == DialogResult.OK)
+            {
+                WinFormStringCnv.setControlFromString(this, File.ReadAllText(ofd.FileName));
+            }
+            else
+            {
+                string paramFilename = Path.Combine(thisExeDirPath, "_param.txt");
+                if (File.Exists(paramFilename))
+                {
+                    WinFormStringCnv.setControlFromString(this, File.ReadAllText(paramFilename));
+                }
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             File.WriteAllText(Path.Combine(thisExeDirPath, "toolStripTextBox_WhiteList.txt"), toolStripTextBox_WhiteList.Text);
             File.WriteAllText(Path.Combine(thisExeDirPath, "toolStripTextBox_IndexSelect.txt"), toolStripTextBox_IndexSelect.Text);
+
+            string FormContents = WinFormStringCnv.ToString(this);
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "TEXT|*.txt";
+
+            if (false && sfd.ShowDialog() == DialogResult.OK)
+            {
+                File.WriteAllText(sfd.FileName, FormContents);
+            }
+            else
+            {
+                string paramFilename = Path.Combine(thisExeDirPath, "_param.txt");
+                File.WriteAllText(paramFilename, FormContents);
+            }
         }
 
         private void pictureBox_Image_MouseUp(object sender, MouseEventArgs e)
         {
+            if (OCR.CellRects == null) return;
             Point clickedPoint = new Point(e.X, e.Y);
             bool find = false;
 
-            for (int i = 0; i < CellRects.Count; i++)
+            for (int i = 0; i < OCR.CellRects.Count; i++)
             {
-                var rect = CellRects[i];
+                var rect = OCR.CellRects[i];
 
                 if (Cv2.PointPolygonTest(rect, clickedPoint, false) >= 0)
                 {
@@ -241,9 +166,9 @@ namespace FormOCR
                     label_CellIndex.Visible = true;
                     textBox_CellText.Visible = true;
 
-                    pictureBoxUpdate(pictureBox_SelectedCellImage, new System.Drawing.Bitmap(CellImage[i]));
+                    pictureBoxUpdate(pictureBox_SelectedCellImage, new System.Drawing.Bitmap(OCR.CellImage[i]));
                     label_CellIndex.Text = i.ToString();
-                    textBox_CellText.Text = CellText[i];
+                    textBox_CellText.Text = OCR.CellText[i];
 
                     find = true;
                 }
@@ -261,44 +186,121 @@ namespace FormOCR
         {
             if (int.TryParse(label_CellIndex.Text, out int CellIndex))
             {
-                CellText[CellIndex] = textBox_CellText.Text;
+                OCR.CellText[CellIndex] = textBox_CellText.Text;
             }
         }
 
-        private void SaveCells(string saveFileName, string srcFileName, int pageIndex = 0)
-        {
-            try
-            {
-                int[] numbers = toolStripTextBox_IndexSelect.Text.Split(',')
-                                          .Select(int.Parse)
-                                          .ToArray();
-
-                List<string> reportList = new List<string>();
-
-                foreach (var i in numbers)
-                {
-                    reportList.Add(CellText[i]);
-                }
-
-                string Line = Path.GetFileNameWithoutExtension(srcFileName) + "\t" + pageIndex.ToString() + "\t" + string.Join("\t", reportList) ;
-                Line= Line.Replace("\r\n","");
-                File.AppendAllText(saveFileName, Line + "\r\n");
-
-            }
-            catch
-            {
-
-            }
-        }
         private void toolStripButton_SaveFile_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "TEXT|*.txt";
-            sfd.FileName = Path.GetFileNameWithoutExtension(TargetFilePath);
+            sfd.FileName = Path.GetFileNameWithoutExtension(OCR.TargetFilePath);
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
-            SaveCells(sfd.FileName, TargetFilePath);
+            //OCR.SaveCells(sfd.FileName, OCR.TargetFilePath);
+        }
 
+        private void Form1_Resize(object sender, EventArgs e)
+        {
+            this.splitContainer2.SplitterDistance = 200;
+        }
+
+        private void toolStripComboBox_BackgroundImageType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MainPictureBoxUpdate();
+        }
+
+        private void MainPictureBoxUpdate()
+        {
+            if (toolStripComboBox_BackgroundImageType.SelectedIndex < 0 || OCR.ProcessImageList.Count <= toolStripComboBox_BackgroundImageType.SelectedIndex) return;
+            pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.ProcessImageList[toolStripComboBox_BackgroundImageType.SelectedIndex]));
+        }
+
+        private void trackBar_HoughRho_ValueChanged(object sender, EventArgs e)
+        {
+            double value = trackBar_HoughRho.Value / 10.0;
+            label_HoughRho.Text = "Rho : " + value.ToString();
+            OCR.HoughRho = value;
+            OCR.FindCellRects();
+            MainPictureBoxUpdate();
+        }
+
+        private void trackBar_HoughTheta_ValueChanged(object sender, EventArgs e)
+        {
+            double value = trackBar_HoughTheta.Value / 10.0;
+            label_HoughTheta.Text = "Theta : " + value.ToString();
+            OCR.HoughTheta = Math.PI / 360.0 * value;
+
+            OCR.FindCellRects(); MainPictureBoxUpdate();
+        }
+
+        private void trackBar_HoughThreshold_ValueChanged(object sender, EventArgs e)
+        {
+            double value = trackBar_HoughThreshold.Value;
+            label_HoughThreshold.Text = "Threshold : " + value.ToString();
+            OCR.HoughThreshold = (int)(value);
+
+            OCR.FindCellRects(); MainPictureBoxUpdate();
+        }
+
+        private void trackBar_HoughMinLineLength_ValueChanged(object sender, EventArgs e)
+        {
+            double value = trackBar_HoughMinLineLength.Value;
+            label_HoughMinLineLength.Text = "MinLineLength : " + value.ToString();
+            OCR.HoughMinLineLength = value;
+
+            OCR.FindCellRects(); MainPictureBoxUpdate();
+        }
+
+        private void trackBar_HoughMaxLineGap_ValueChanged(object sender, EventArgs e)
+        {
+            double value = trackBar_HoughMaxLineGap.Value;
+            label_HoughMaxLineGap.Text = "MaxLineGap : " + value.ToString();
+            OCR.HoughMaxLineGap = value;
+
+            OCR.FindCellRects(); MainPictureBoxUpdate();
+        }
+
+        private void trackBar_HoughRangeD_ValueChanged(object sender, EventArgs e)
+        {
+            double value = trackBar_HoughRangeD.Value / 10.0;
+            label_HoughRangeD.Text = "RangeD : " + value.ToString();
+            OCR.HoughRangeD = value;
+
+            OCR.FindCellRects(); MainPictureBoxUpdate();
+        }
+
+        private void trackBar_CellAreaMin_ValueChanged(object sender, EventArgs e)
+        {
+            int value = trackBar_CellAreaMin.Value;
+            label_CellAreaMin.Text = "CellAreaMin : " + value.ToString();
+            OCR.CellAreaMin = value;
+
+            OCR.FindCellRects(); MainPictureBoxUpdate();
+        }
+
+        private void toolStripTextBox_WhiteList_TextChanged(object sender, EventArgs e)
+        {
+            OCR.WhiteList = toolStripTextBox_WhiteList.Text;
+        }
+
+        private void toolStripComboBox_PageSelector_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (toolStripComboBox_PageSelector.SelectedIndex < 0) return;
+
+            OCR.FindCellRects(toolStripComboBox_PageSelector.SelectedIndex);
+            pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.SrcImageList[0]));
+
+            toolStripComboBox_BackgroundImageType.Items.Clear();
+
+            string[] Items = OCR.ProcessNameList.ToArray();
+            toolStripComboBox_BackgroundImageType.Items.AddRange(Items);
+            toolStripComboBox_BackgroundImageType.Text = (string)Items[0];
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
