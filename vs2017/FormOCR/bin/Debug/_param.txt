@@ -1,0 +1,8 @@
+textBox_CellText	
+trackBar_CellAreaMin	515
+trackBar_HoughRangeD	14
+trackBar_HoughMaxLineGap	2
+trackBar_HoughMinLineLength	21
+trackBar_HoughThreshold	58
+trackBar_HoughTheta	1
+trackBar_HoughRho	10
