@@ -1,8 +1,11 @@
-textBox_CellText	
-trackBar_CellAreaMin	515
+dataGridView_WhiteList	0123456789	5,9,13,17,21,25,29,33,
+dataGridView_WhiteList	0123456789	6,10,14,18,22,26,30,34,
+textBox_CellText	79
+trackBar_CellAreaMax	216
+trackBar_CellAreaMin	348
 trackBar_HoughRangeD	14
 trackBar_HoughMaxLineGap	2
-trackBar_HoughMinLineLength	21
-trackBar_HoughThreshold	58
+trackBar_HoughMinLineLength	12
+trackBar_HoughThreshold	68
 trackBar_HoughTheta	1
 trackBar_HoughRho	10
