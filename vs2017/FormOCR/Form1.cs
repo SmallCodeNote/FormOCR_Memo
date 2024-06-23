@@ -205,6 +205,12 @@ namespace FormOCR
         private void Form1_Resize(object sender, EventArgs e)
         {
             this.splitContainer2.SplitterDistance = 200;
+            this.splitContainer3.SplitterDistance = this.splitContainer3.Height - dataGridView_WhiteList.Rows[0].Height*5;
+
+            int colWidth = this.splitContainer3.Width-70;
+            dataGridView_WhiteList.Columns[0].Width = colWidth / 2;
+            dataGridView_WhiteList.Columns[1].Width = colWidth / 2;
+
         }
 
         private void toolStripComboBox_BackgroundImageType_SelectedIndexChanged(object sender, EventArgs e)
@@ -326,6 +332,27 @@ namespace FormOCR
             OCR.CellAreaMax = value;
 
             OCR.FindCellRects(); MainPictureBoxUpdate();
+        }
+
+        private void dataGridView_WhiteList_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.ColumnIndex < 0 && e.RowIndex >= 0)
+            {
+                e.Paint(e.ClipBounds, DataGridViewPaintParts.All);
+
+                System.Drawing.Rectangle indexRect = e.CellBounds;
+                indexRect.Inflate(-2, -2);
+
+                if(e.RowIndex < dataGridView_WhiteList.RowCount-1) { 
+                    TextRenderer.DrawText(e.Graphics,
+                    (e.RowIndex + 1).ToString(),
+                    e.CellStyle.Font,
+                    indexRect,
+                    e.CellStyle.ForeColor,
+                    TextFormatFlags.Right | TextFormatFlags.VerticalCenter);
+                }
+                e.Handled = true;
+            }
         }
     }
 }

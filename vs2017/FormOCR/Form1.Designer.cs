@@ -36,14 +36,13 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBox_IndexSelect = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripLabel_MousePosition = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox_Image = new System.Windows.Forms.PictureBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox_SelectedCellImage = new System.Windows.Forms.PictureBox();
-            this.textBox_CellText = new System.Windows.Forms.TextBox();
-            this.label_CellIndex = new System.Windows.Forms.Label();
             this.panel_Frame2 = new System.Windows.Forms.Panel();
+            this.trackBar_CellAreaMax = new System.Windows.Forms.TrackBar();
+            this.label_CellAreaMax = new System.Windows.Forms.Label();
             this.trackBar_CellAreaMin = new System.Windows.Forms.TrackBar();
             this.label_CellAreaMin = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -70,9 +69,14 @@
             this.toolStripLabel_PageMax = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_SaveFile = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel_MousePosition = new System.Windows.Forms.ToolStripLabel();
-            this.trackBar_CellAreaMax = new System.Windows.Forms.TrackBar();
-            this.label_CellAreaMax = new System.Windows.Forms.Label();
+            this.dataGridView_WhiteList = new System.Windows.Forms.DataGridView();
+            this.Column_WhiteList = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_SelectIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.label_CellIndex = new System.Windows.Forms.Label();
+            this.textBox_CellText = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox_SelectedCellImage = new System.Windows.Forms.PictureBox();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -87,9 +91,8 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).BeginInit();
             this.panel_Frame2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRangeD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughMaxLineGap)).BeginInit();
@@ -98,7 +101,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughTheta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WhiteList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -167,6 +176,13 @@
             this.toolStripTextBox_IndexSelect.Name = "toolStripTextBox_IndexSelect";
             this.toolStripTextBox_IndexSelect.Size = new System.Drawing.Size(300, 25);
             // 
+            // toolStripLabel_MousePosition
+            // 
+            this.toolStripLabel_MousePosition.AutoSize = false;
+            this.toolStripLabel_MousePosition.Name = "toolStripLabel_MousePosition";
+            this.toolStripLabel_MousePosition.Size = new System.Drawing.Size(100, 22);
+            this.toolStripLabel_MousePosition.Text = "...";
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -176,7 +192,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.AutoScroll = true;
-            this.splitContainer1.Panel1.Controls.Add(this.pictureBox_Image);
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
             // 
             // splitContainer1.Panel2
             // 
@@ -220,48 +236,6 @@
             this.splitContainer2.SplitterDistance = 200;
             this.splitContainer2.TabIndex = 0;
             // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.pictureBox_SelectedCellImage);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 81);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(204, 112);
-            this.panel1.TabIndex = 3;
-            // 
-            // pictureBox_SelectedCellImage
-            // 
-            this.pictureBox_SelectedCellImage.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox_SelectedCellImage.Name = "pictureBox_SelectedCellImage";
-            this.pictureBox_SelectedCellImage.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox_SelectedCellImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox_SelectedCellImage.TabIndex = 0;
-            this.pictureBox_SelectedCellImage.TabStop = false;
-            // 
-            // textBox_CellText
-            // 
-            this.textBox_CellText.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox_CellText.Location = new System.Drawing.Point(0, 16);
-            this.textBox_CellText.Multiline = true;
-            this.textBox_CellText.Name = "textBox_CellText";
-            this.textBox_CellText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_CellText.Size = new System.Drawing.Size(204, 65);
-            this.textBox_CellText.TabIndex = 2;
-            this.textBox_CellText.WordWrap = false;
-            this.textBox_CellText.TextChanged += new System.EventHandler(this.textBox_CellText_TextChanged);
-            // 
-            // label_CellIndex
-            // 
-            this.label_CellIndex.AutoSize = true;
-            this.label_CellIndex.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_CellIndex.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label_CellIndex.Location = new System.Drawing.Point(0, 0);
-            this.label_CellIndex.Name = "label_CellIndex";
-            this.label_CellIndex.Size = new System.Drawing.Size(17, 16);
-            this.label_CellIndex.TabIndex = 1;
-            this.label_CellIndex.Text = "...";
-            // 
             // panel_Frame2
             // 
             this.panel_Frame2.Controls.Add(this.trackBar_CellAreaMax);
@@ -287,6 +261,29 @@
             this.panel_Frame2.Name = "panel_Frame2";
             this.panel_Frame2.Size = new System.Drawing.Size(204, 596);
             this.panel_Frame2.TabIndex = 0;
+            // 
+            // trackBar_CellAreaMax
+            // 
+            this.trackBar_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar_CellAreaMax.LargeChange = 10;
+            this.trackBar_CellAreaMax.Location = new System.Drawing.Point(0, 435);
+            this.trackBar_CellAreaMax.Maximum = 1000;
+            this.trackBar_CellAreaMax.Minimum = 1;
+            this.trackBar_CellAreaMax.Name = "trackBar_CellAreaMax";
+            this.trackBar_CellAreaMax.Size = new System.Drawing.Size(204, 45);
+            this.trackBar_CellAreaMax.TabIndex = 16;
+            this.trackBar_CellAreaMax.TickFrequency = 50;
+            this.trackBar_CellAreaMax.Value = 100;
+            this.trackBar_CellAreaMax.ValueChanged += new System.EventHandler(this.trackBar_CellAreaMax_ValueChanged);
+            // 
+            // label_CellAreaMax
+            // 
+            this.label_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_CellAreaMax.Location = new System.Drawing.Point(0, 423);
+            this.label_CellAreaMax.Name = "label_CellAreaMax";
+            this.label_CellAreaMax.Size = new System.Drawing.Size(204, 12);
+            this.label_CellAreaMax.TabIndex = 17;
+            this.label_CellAreaMax.Text = "CellAreaMax";
             // 
             // trackBar_CellAreaMin
             // 
@@ -548,35 +545,87 @@
             this.toolStripButton_SaveFile.Text = "SaveFile";
             this.toolStripButton_SaveFile.Click += new System.EventHandler(this.toolStripButton_SaveFile_Click);
             // 
-            // toolStripLabel_MousePosition
+            // dataGridView_WhiteList
             // 
-            this.toolStripLabel_MousePosition.AutoSize = false;
-            this.toolStripLabel_MousePosition.Name = "toolStripLabel_MousePosition";
-            this.toolStripLabel_MousePosition.Size = new System.Drawing.Size(100, 22);
-            this.toolStripLabel_MousePosition.Text = "...";
+            this.dataGridView_WhiteList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_WhiteList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column_WhiteList,
+            this.Column_SelectIndex});
+            this.dataGridView_WhiteList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_WhiteList.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView_WhiteList.Name = "dataGridView_WhiteList";
+            this.dataGridView_WhiteList.RowTemplate.Height = 21;
+            this.dataGridView_WhiteList.Size = new System.Drawing.Size(736, 120);
+            this.dataGridView_WhiteList.TabIndex = 0;
+            this.dataGridView_WhiteList.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView_WhiteList_CellPainting);
             // 
-            // trackBar_CellAreaMax
+            // Column_WhiteList
             // 
-            this.trackBar_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_CellAreaMax.LargeChange = 10;
-            this.trackBar_CellAreaMax.Location = new System.Drawing.Point(0, 435);
-            this.trackBar_CellAreaMax.Maximum = 1000;
-            this.trackBar_CellAreaMax.Minimum = 1;
-            this.trackBar_CellAreaMax.Name = "trackBar_CellAreaMax";
-            this.trackBar_CellAreaMax.Size = new System.Drawing.Size(204, 45);
-            this.trackBar_CellAreaMax.TabIndex = 16;
-            this.trackBar_CellAreaMax.TickFrequency = 50;
-            this.trackBar_CellAreaMax.Value = 100;
-            this.trackBar_CellAreaMax.ValueChanged += new System.EventHandler(this.trackBar_CellAreaMax_ValueChanged);
+            this.Column_WhiteList.HeaderText = "WhiteList";
+            this.Column_WhiteList.Name = "Column_WhiteList";
             // 
-            // label_CellAreaMax
+            // Column_SelectIndex
             // 
-            this.label_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_CellAreaMax.Location = new System.Drawing.Point(0, 423);
-            this.label_CellAreaMax.Name = "label_CellAreaMax";
-            this.label_CellAreaMax.Size = new System.Drawing.Size(204, 12);
-            this.label_CellAreaMax.TabIndex = 17;
-            this.label_CellAreaMax.Text = "CellAreaMax";
+            this.Column_SelectIndex.HeaderText = "SelectIndex";
+            this.Column_SelectIndex.Name = "Column_SelectIndex";
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.pictureBox_Image);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.dataGridView_WhiteList);
+            this.splitContainer3.Size = new System.Drawing.Size(736, 874);
+            this.splitContainer3.SplitterDistance = 750;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // label_CellIndex
+            // 
+            this.label_CellIndex.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_CellIndex.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label_CellIndex.Location = new System.Drawing.Point(0, 0);
+            this.label_CellIndex.Name = "label_CellIndex";
+            this.label_CellIndex.Size = new System.Drawing.Size(204, 16);
+            this.label_CellIndex.TabIndex = 3;
+            this.label_CellIndex.Text = "...";
+            // 
+            // textBox_CellText
+            // 
+            this.textBox_CellText.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBox_CellText.Location = new System.Drawing.Point(0, 16);
+            this.textBox_CellText.Multiline = true;
+            this.textBox_CellText.Name = "textBox_CellText";
+            this.textBox_CellText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox_CellText.Size = new System.Drawing.Size(204, 65);
+            this.textBox_CellText.TabIndex = 4;
+            this.textBox_CellText.WordWrap = false;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pictureBox_SelectedCellImage);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 81);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(204, 112);
+            this.panel1.TabIndex = 5;
+            // 
+            // pictureBox_SelectedCellImage
+            // 
+            this.pictureBox_SelectedCellImage.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox_SelectedCellImage.Name = "pictureBox_SelectedCellImage";
+            this.pictureBox_SelectedCellImage.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox_SelectedCellImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox_SelectedCellImage.TabIndex = 0;
+            this.pictureBox_SelectedCellImage.TabStop = false;
             // 
             // Form1
             // 
@@ -600,7 +649,6 @@
             this.toolStrip2.ResumeLayout(false);
             this.toolStrip2.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
@@ -610,11 +658,9 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).EndInit();
             this.panel_Frame2.ResumeLayout(false);
             this.panel_Frame2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRangeD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughMaxLineGap)).EndInit();
@@ -624,7 +670,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WhiteList)).EndInit();
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -641,14 +695,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox_IndexSelect;
-        private System.Windows.Forms.PictureBox pictureBox_SelectedCellImage;
-        private System.Windows.Forms.TextBox textBox_CellText;
-        private System.Windows.Forms.Label label_CellIndex;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox_RunMode;
         private System.Windows.Forms.ToolStripButton toolStripButton_SaveFile;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox_ProcessImageSelector;
         private System.Windows.Forms.SplitContainer splitContainer2;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel_Frame2;
         private System.Windows.Forms.TrackBar trackBar_HoughRho;
         private System.Windows.Forms.Label label1;
@@ -674,6 +724,14 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel_MousePosition;
         private System.Windows.Forms.TrackBar trackBar_CellAreaMax;
         private System.Windows.Forms.Label label_CellAreaMax;
+        private System.Windows.Forms.DataGridView dataGridView_WhiteList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_WhiteList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_SelectIndex;
+        private System.Windows.Forms.SplitContainer splitContainer3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox_SelectedCellImage;
+        private System.Windows.Forms.TextBox textBox_CellText;
+        private System.Windows.Forms.Label label_CellIndex;
     }
 }
 

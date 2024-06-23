@@ -66,6 +66,7 @@ namespace FormOCR
 
             ClearImgList(ProcessImageList);
             ProcessImageList[pageIndex] = new List<System.Drawing.Bitmap>();
+
             ProcessNameList[pageIndex].Clear();
 
             if (SrcImageList.Count <= pageIndex) return;
@@ -94,66 +95,70 @@ namespace FormOCR
                     Cv2.FindContours(dst, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
                 }
 
-                List<RotatedRect> CellRects = new List<RotatedRect>();
-
-                CellRectCorners = new List<Point[]>();
-                ClearImgList(CellImage);
-                CellImage = new List<System.Drawing.Bitmap>();
-
-                CellText = new List<string>();
-
-                for (int i = 0; i < contours.Length; i++)
-                {
-                    if (Cv2.ContourArea(contours[i]) < CellAreaMin) continue;
-                    if (Cv2.ContourArea(contours[i]) > CellAreaMax) continue;
-
-                    RotatedRect rect = Cv2.MinAreaRect(contours[i]);
-
-                    CellRects.Add(rect);
-
-                    //Point[] rectPoints = Cv2.BoxPoints(rect).Select(p => new Point((int)p.X, (int)p.Y)).ToArray();
-                    //CellRectCorners.Add(rectPoints);
-                }
-
-                //CellRectCorners = CellRectCorners.OrderBy(r => r[0].Y).ThenBy(r => r[0].X).ToList();
-                CellRects = CellRects.OrderBy(r => r.Center.Y).ThenBy(r => r.Center.X).ToList();
-
-
-                for (int i = 0; i < CellRects.Count; i++)
-                {
-                    RotatedRect rP = CellRects[i];
-                    var L = CellRects.Skip(i).Where(r => r.Center.Y <= rP.Center.Y + rP.Size.Height / 4 && r.Center.Y >= rP.Center.Y - rP.Size.Height / 4 && r.Center.X < rP.Center.X).OrderBy(r => r.Center.X).ToList();
-                    if (L.Count > 0)
-                    {
-                        replaceRectsElement(CellRects, L[0], rP, i);
-                        CellRects[i] = L[0];
-                    }
-                }
-
-                for (int i = 0; i < CellRects.Count; i++)
-                {
-                    RotatedRect rect = CellRects[i];
-                    Point[] rectPoints = Cv2.BoxPoints(rect).Select(p => new Point((int)p.X, (int)p.Y)).ToArray();
-                    CellRectCorners.Add(rectPoints);
-                }
-
-                for (int i = 0; i < CellRectCorners.Count; i++)
-                {
-                    Rect boundingRect = Cv2.BoundingRect(CellRectCorners[i]);
-                    try
-                    {
-                        using (Mat cropped = new Mat(img, boundingRect))
-                        {
-                            System.Drawing.Bitmap bmp = BitmapConverter.ToBitmap(cropped);
-                            CellImage.Add(bmp);
-                            CellText.Add("");
-                        }
-                    }
-                    catch { }
-                }
-
+                createRects(contours,img);
                 ProcessNameList[pageIndex].Add("DrawRect"); ProcessImageList[pageIndex].Add(drawRect(BitmapConverter.ToBitmap(img)));
+            }
+        }
 
+        private void createRects(Point[][] contours,Mat img)
+        {
+            List<RotatedRect> CellRects = new List<RotatedRect>();
+
+            CellRectCorners = new List<Point[]>();
+            ClearImgList(CellImage);
+            CellImage = new List<System.Drawing.Bitmap>();
+            CellText = new List<string>();
+
+            for (int i = 0; i < contours.Length; i++)
+            {
+                if (Cv2.ContourArea(contours[i]) < CellAreaMin) continue;
+                if (Cv2.ContourArea(contours[i]) > CellAreaMax) continue;
+
+                RotatedRect rect = Cv2.MinAreaRect(contours[i]);
+
+                CellRects.Add(rect);
+            }
+
+            CellRects = CellRects.OrderBy(r => r.Center.Y).ThenBy(r => r.Center.X).ToList();
+
+            for (int i = 0; i < CellRects.Count; i++)
+            {
+                RotatedRect rP = CellRects[i];
+                float rT = rP.Center.Y + rP.Size.Height / 4.0f;
+                float rB = rP.Center.Y - rP.Size.Height / 4.0f;
+
+                var L = CellRects.Skip(i)
+                    .Where(r => r.Center.Y <= rT && r.Center.Y >= rB
+                        && r.Center.X < rP.Center.X).OrderBy(r => r.Center.X)
+                    .ToList();
+
+                if (L.Count > 0)
+                {
+                    replaceRectsElement(CellRects, L[0], rP, i);
+                    CellRects[i] = L[0];
+                }
+            }
+
+            for (int i = 0; i < CellRects.Count; i++)
+            {
+                RotatedRect rect = CellRects[i];
+                Point[] rectPoints = Cv2.BoxPoints(rect).Select(p => new Point((int)p.X, (int)p.Y)).ToArray();
+                CellRectCorners.Add(rectPoints);
+            }
+
+            for (int i = 0; i < CellRectCorners.Count; i++)
+            {
+                Rect boundingRect = Cv2.BoundingRect(CellRectCorners[i]);
+                try
+                {
+                    using (Mat cropped = new Mat(img, boundingRect))
+                    {
+                        System.Drawing.Bitmap bmp = BitmapConverter.ToBitmap(cropped);
+                        CellImage.Add(bmp);
+                        CellText.Add("");
+                    }
+                }
+                catch { }
             }
         }
 
