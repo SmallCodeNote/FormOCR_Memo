@@ -31,11 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox_WhiteList = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBox_IndexSelect = new System.Windows.Forms.ToolStripTextBox();
             this.toolStripLabel_MousePosition = new System.Windows.Forms.ToolStripLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.pictureBox_Image = new System.Windows.Forms.PictureBox();
@@ -77,6 +73,15 @@
             this.textBox_CellText = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox_SelectedCellImage = new System.Windows.Forms.PictureBox();
+            this.toolStripButton_RunOCR = new System.Windows.Forms.ToolStripButton();
+            this.toolStripTextBox_IndexCollection = new System.Windows.Forms.ToolStripTextBox();
+            this.toolStripComboBox_IndexCollectFlag = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripButton_SaveImage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton_SaveAllImage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -136,45 +141,26 @@
             // 
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel1,
-            this.toolStripTextBox_WhiteList,
             this.toolStripSeparator1,
-            this.toolStripLabel2,
-            this.toolStripTextBox_IndexSelect,
-            this.toolStripLabel_MousePosition});
+            this.toolStripLabel_MousePosition,
+            this.toolStripSeparator6,
+            this.toolStripButton_RunOCR,
+            this.toolStripSeparator4,
+            this.toolStripButton_SaveImage,
+            this.toolStripSeparator5,
+            this.toolStripButton_SaveAllImage,
+            this.toolStripSeparator7,
+            this.toolStripComboBox_IndexCollectFlag,
+            this.toolStripTextBox_IndexCollection});
             this.toolStrip2.Location = new System.Drawing.Point(3, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(857, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(765, 25);
             this.toolStrip2.TabIndex = 0;
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(62, 22);
-            this.toolStripLabel1.Text = "WhiteList :";
-            // 
-            // toolStripTextBox_WhiteList
-            // 
-            this.toolStripTextBox_WhiteList.Name = "toolStripTextBox_WhiteList";
-            this.toolStripTextBox_WhiteList.Size = new System.Drawing.Size(300, 25);
-            this.toolStripTextBox_WhiteList.Text = "0123456789";
-            this.toolStripTextBox_WhiteList.TextChanged += new System.EventHandler(this.toolStripTextBox_WhiteList_TextChanged);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(73, 22);
-            this.toolStripLabel2.Text = "IndexSelect :";
-            // 
-            // toolStripTextBox_IndexSelect
-            // 
-            this.toolStripTextBox_IndexSelect.Name = "toolStripTextBox_IndexSelect";
-            this.toolStripTextBox_IndexSelect.Size = new System.Drawing.Size(300, 25);
             // 
             // toolStripLabel_MousePosition
             // 
@@ -607,6 +593,7 @@
             this.textBox_CellText.Size = new System.Drawing.Size(204, 65);
             this.textBox_CellText.TabIndex = 4;
             this.textBox_CellText.WordWrap = false;
+            this.textBox_CellText.TextChanged += new System.EventHandler(this.textBox_CellText_TextChanged);
             // 
             // panel1
             // 
@@ -626,6 +613,74 @@
             this.pictureBox_SelectedCellImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_SelectedCellImage.TabIndex = 0;
             this.pictureBox_SelectedCellImage.TabStop = false;
+            // 
+            // toolStripButton_RunOCR
+            // 
+            this.toolStripButton_RunOCR.AutoSize = false;
+            this.toolStripButton_RunOCR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_RunOCR.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_RunOCR.Image")));
+            this.toolStripButton_RunOCR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_RunOCR.Name = "toolStripButton_RunOCR";
+            this.toolStripButton_RunOCR.Size = new System.Drawing.Size(80, 22);
+            this.toolStripButton_RunOCR.Text = "RunOCR";
+            this.toolStripButton_RunOCR.ToolTipText = "Run OCR";
+            this.toolStripButton_RunOCR.Click += new System.EventHandler(this.toolStripButton_RunOCR_Click);
+            // 
+            // toolStripTextBox_IndexCollection
+            // 
+            this.toolStripTextBox_IndexCollection.AutoSize = false;
+            this.toolStripTextBox_IndexCollection.Name = "toolStripTextBox_IndexCollection";
+            this.toolStripTextBox_IndexCollection.Size = new System.Drawing.Size(300, 25);
+            // 
+            // toolStripComboBox_IndexCollectFlag
+            // 
+            this.toolStripComboBox_IndexCollectFlag.AutoSize = false;
+            this.toolStripComboBox_IndexCollectFlag.Items.AddRange(new object[] {
+            "OFF",
+            "ON"});
+            this.toolStripComboBox_IndexCollectFlag.Name = "toolStripComboBox_IndexCollectFlag";
+            this.toolStripComboBox_IndexCollectFlag.Size = new System.Drawing.Size(60, 25);
+            this.toolStripComboBox_IndexCollectFlag.Text = "OFF";
+            // 
+            // toolStripButton_SaveImage
+            // 
+            this.toolStripButton_SaveImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_SaveImage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_SaveImage.Image")));
+            this.toolStripButton_SaveImage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_SaveImage.Name = "toolStripButton_SaveImage";
+            this.toolStripButton_SaveImage.Size = new System.Drawing.Size(67, 22);
+            this.toolStripButton_SaveImage.Text = "SaveImage";
+            this.toolStripButton_SaveImage.Click += new System.EventHandler(this.toolStripButton_SaveImage_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton_SaveAllImage
+            // 
+            this.toolStripButton_SaveAllImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_SaveAllImage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_SaveAllImage.Image")));
+            this.toolStripButton_SaveAllImage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_SaveAllImage.Name = "toolStripButton_SaveAllImage";
+            this.toolStripButton_SaveAllImage.Size = new System.Drawing.Size(81, 22);
+            this.toolStripButton_SaveAllImage.Text = "SaveAllImage";
+            this.toolStripButton_SaveAllImage.Click += new System.EventHandler(this.toolStripButton_SaveAllImage_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
             // Form1
             // 
@@ -690,11 +745,7 @@
         private System.Windows.Forms.PictureBox pictureBox_Image;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox_WhiteList;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox_IndexSelect;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox_RunMode;
         private System.Windows.Forms.ToolStripButton toolStripButton_SaveFile;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox_ProcessImageSelector;
@@ -732,6 +783,15 @@
         private System.Windows.Forms.PictureBox pictureBox_SelectedCellImage;
         private System.Windows.Forms.TextBox textBox_CellText;
         private System.Windows.Forms.Label label_CellIndex;
+        private System.Windows.Forms.ToolStripButton toolStripButton_RunOCR;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox_IndexCollectFlag;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox_IndexCollection;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton toolStripButton_SaveImage;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton toolStripButton_SaveAllImage;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
     }
 }
 
