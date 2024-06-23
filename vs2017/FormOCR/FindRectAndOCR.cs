@@ -267,7 +267,7 @@ namespace FormOCR
 
                 if ((angle >= 0 - HoughRangeD && angle <= 0 + HoughRangeD) || (angle >= 90 - HoughRangeD && angle <= 90 + HoughRangeD))
                 {
-                    src.Line(line.P1, line.P2, Scalar.White, 1);
+                    src.Line(line.P1, line.P2, Scalar.White, 4);
                 }
             }
         }
@@ -278,7 +278,7 @@ namespace FormOCR
             Mat imgColor = new Mat();
             Cv2.CvtColor(img, imgColor, ColorConversionCodes.BGRA2BGR);
 
-            Random rnd = new Random();
+            Random rnd = new Random(0);
 
             var croppedImages = new List<Mat>();
 
@@ -369,7 +369,7 @@ namespace FormOCR
 
                     var pix = cvt.Convert(img);
                     Tesseract.Page page = tesseract.Process(pix);
-                    CellText[pageIndex][cellIndex[i]] = page.GetText().Replace("\n", "").Replace("\r", ""); ;
+                    CellText[pageIndex][cellIndex[i]] = page.GetText().Replace("\n", "").Replace("\r", "").Replace(" ", "");
                 }
             }
         }

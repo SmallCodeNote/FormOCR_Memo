@@ -33,9 +33,24 @@
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel_MousePosition = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton_RunOCR = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton_SaveImage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton_SaveAllImage = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripComboBox_IndexCollectFlag = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripTextBox_IndexCollection = new System.Windows.Forms.ToolStripTextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pictureBox_Image = new System.Windows.Forms.PictureBox();
+            this.dataGridView_WhiteList = new System.Windows.Forms.DataGridView();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox_SelectedCellImage = new System.Windows.Forms.PictureBox();
+            this.textBox_CellText = new System.Windows.Forms.TextBox();
+            this.label_CellIndex = new System.Windows.Forms.Label();
             this.panel_Frame2 = new System.Windows.Forms.Panel();
             this.trackBar_CellAreaMax = new System.Windows.Forms.TrackBar();
             this.label_CellAreaMax = new System.Windows.Forms.Label();
@@ -65,23 +80,8 @@
             this.toolStripLabel_PageMax = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_SaveFile = new System.Windows.Forms.ToolStripButton();
-            this.dataGridView_WhiteList = new System.Windows.Forms.DataGridView();
             this.Column_WhiteList = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column_SelectIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.label_CellIndex = new System.Windows.Forms.Label();
-            this.textBox_CellText = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox_SelectedCellImage = new System.Windows.Forms.PictureBox();
-            this.toolStripButton_RunOCR = new System.Windows.Forms.ToolStripButton();
-            this.toolStripTextBox_IndexCollection = new System.Windows.Forms.ToolStripTextBox();
-            this.toolStripComboBox_IndexCollectFlag = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripButton_SaveImage = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton_SaveAllImage = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -91,11 +91,18 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
+            this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
+            this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Image)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WhiteList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).BeginInit();
             this.panel_Frame2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMin)).BeginInit();
@@ -106,13 +113,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughTheta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WhiteList)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-            this.splitContainer3.Panel1.SuspendLayout();
-            this.splitContainer3.Panel2.SuspendLayout();
-            this.splitContainer3.SuspendLayout();
-            this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -169,6 +169,75 @@
             this.toolStripLabel_MousePosition.Size = new System.Drawing.Size(100, 22);
             this.toolStripLabel_MousePosition.Text = "...";
             // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton_RunOCR
+            // 
+            this.toolStripButton_RunOCR.AutoSize = false;
+            this.toolStripButton_RunOCR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_RunOCR.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_RunOCR.Image")));
+            this.toolStripButton_RunOCR.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_RunOCR.Name = "toolStripButton_RunOCR";
+            this.toolStripButton_RunOCR.Size = new System.Drawing.Size(80, 22);
+            this.toolStripButton_RunOCR.Text = "RunOCR";
+            this.toolStripButton_RunOCR.ToolTipText = "Run OCR";
+            this.toolStripButton_RunOCR.Click += new System.EventHandler(this.toolStripButton_RunOCR_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton_SaveImage
+            // 
+            this.toolStripButton_SaveImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_SaveImage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_SaveImage.Image")));
+            this.toolStripButton_SaveImage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_SaveImage.Name = "toolStripButton_SaveImage";
+            this.toolStripButton_SaveImage.Size = new System.Drawing.Size(67, 22);
+            this.toolStripButton_SaveImage.Text = "SaveImage";
+            this.toolStripButton_SaveImage.Click += new System.EventHandler(this.toolStripButton_SaveImage_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton_SaveAllImage
+            // 
+            this.toolStripButton_SaveAllImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_SaveAllImage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_SaveAllImage.Image")));
+            this.toolStripButton_SaveAllImage.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_SaveAllImage.Name = "toolStripButton_SaveAllImage";
+            this.toolStripButton_SaveAllImage.Size = new System.Drawing.Size(81, 22);
+            this.toolStripButton_SaveAllImage.Text = "SaveAllImage";
+            this.toolStripButton_SaveAllImage.Click += new System.EventHandler(this.toolStripButton_SaveAllImage_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripComboBox_IndexCollectFlag
+            // 
+            this.toolStripComboBox_IndexCollectFlag.AutoSize = false;
+            this.toolStripComboBox_IndexCollectFlag.Items.AddRange(new object[] {
+            "OFF",
+            "ON"});
+            this.toolStripComboBox_IndexCollectFlag.Name = "toolStripComboBox_IndexCollectFlag";
+            this.toolStripComboBox_IndexCollectFlag.Size = new System.Drawing.Size(60, 23);
+            this.toolStripComboBox_IndexCollectFlag.Text = "OFF";
+            this.toolStripComboBox_IndexCollectFlag.ToolTipText = "CellIndexCollectSwitch";
+            // 
+            // toolStripTextBox_IndexCollection
+            // 
+            this.toolStripTextBox_IndexCollection.AutoSize = false;
+            this.toolStripTextBox_IndexCollection.Name = "toolStripTextBox_IndexCollection";
+            this.toolStripTextBox_IndexCollection.Size = new System.Drawing.Size(300, 25);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -188,6 +257,24 @@
             this.splitContainer1.SplitterDistance = 736;
             this.splitContainer1.TabIndex = 1;
             // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.pictureBox_Image);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.dataGridView_WhiteList);
+            this.splitContainer3.Size = new System.Drawing.Size(736, 874);
+            this.splitContainer3.SplitterDistance = 750;
+            this.splitContainer3.TabIndex = 0;
+            // 
             // pictureBox_Image
             // 
             this.pictureBox_Image.Location = new System.Drawing.Point(0, 0);
@@ -198,6 +285,20 @@
             this.pictureBox_Image.TabStop = false;
             this.pictureBox_Image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Image_MouseMove);
             this.pictureBox_Image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Image_MouseUp);
+            // 
+            // dataGridView_WhiteList
+            // 
+            this.dataGridView_WhiteList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_WhiteList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column_WhiteList,
+            this.Column_SelectIndex});
+            this.dataGridView_WhiteList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView_WhiteList.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView_WhiteList.Name = "dataGridView_WhiteList";
+            this.dataGridView_WhiteList.RowTemplate.Height = 21;
+            this.dataGridView_WhiteList.Size = new System.Drawing.Size(736, 120);
+            this.dataGridView_WhiteList.TabIndex = 0;
+            this.dataGridView_WhiteList.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView_WhiteList_CellPainting);
             // 
             // splitContainer2
             // 
@@ -221,6 +322,47 @@
             this.splitContainer2.Size = new System.Drawing.Size(206, 874);
             this.splitContainer2.SplitterDistance = 200;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.pictureBox_SelectedCellImage);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 81);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(204, 112);
+            this.panel1.TabIndex = 5;
+            // 
+            // pictureBox_SelectedCellImage
+            // 
+            this.pictureBox_SelectedCellImage.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox_SelectedCellImage.Name = "pictureBox_SelectedCellImage";
+            this.pictureBox_SelectedCellImage.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox_SelectedCellImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox_SelectedCellImage.TabIndex = 0;
+            this.pictureBox_SelectedCellImage.TabStop = false;
+            // 
+            // textBox_CellText
+            // 
+            this.textBox_CellText.Dock = System.Windows.Forms.DockStyle.Top;
+            this.textBox_CellText.Location = new System.Drawing.Point(0, 16);
+            this.textBox_CellText.Multiline = true;
+            this.textBox_CellText.Name = "textBox_CellText";
+            this.textBox_CellText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox_CellText.Size = new System.Drawing.Size(204, 65);
+            this.textBox_CellText.TabIndex = 4;
+            this.textBox_CellText.WordWrap = false;
+            this.textBox_CellText.TextChanged += new System.EventHandler(this.textBox_CellText_TextChanged);
+            // 
+            // label_CellIndex
+            // 
+            this.label_CellIndex.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_CellIndex.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label_CellIndex.Location = new System.Drawing.Point(0, 0);
+            this.label_CellIndex.Name = "label_CellIndex";
+            this.label_CellIndex.Size = new System.Drawing.Size(204, 16);
+            this.label_CellIndex.TabIndex = 3;
+            this.label_CellIndex.Text = "...";
             // 
             // panel_Frame2
             // 
@@ -531,20 +673,6 @@
             this.toolStripButton_SaveFile.Text = "SaveFile";
             this.toolStripButton_SaveFile.Click += new System.EventHandler(this.toolStripButton_SaveFile_Click);
             // 
-            // dataGridView_WhiteList
-            // 
-            this.dataGridView_WhiteList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_WhiteList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column_WhiteList,
-            this.Column_SelectIndex});
-            this.dataGridView_WhiteList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView_WhiteList.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView_WhiteList.Name = "dataGridView_WhiteList";
-            this.dataGridView_WhiteList.RowTemplate.Height = 21;
-            this.dataGridView_WhiteList.Size = new System.Drawing.Size(736, 120);
-            this.dataGridView_WhiteList.TabIndex = 0;
-            this.dataGridView_WhiteList.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView_WhiteList_CellPainting);
-            // 
             // Column_WhiteList
             // 
             this.Column_WhiteList.HeaderText = "WhiteList";
@@ -552,135 +680,8 @@
             // 
             // Column_SelectIndex
             // 
-            this.Column_SelectIndex.HeaderText = "SelectIndex";
+            this.Column_SelectIndex.HeaderText = "SelectCellIndex";
             this.Column_SelectIndex.Name = "Column_SelectIndex";
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.pictureBox_Image);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.dataGridView_WhiteList);
-            this.splitContainer3.Size = new System.Drawing.Size(736, 874);
-            this.splitContainer3.SplitterDistance = 750;
-            this.splitContainer3.TabIndex = 0;
-            // 
-            // label_CellIndex
-            // 
-            this.label_CellIndex.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_CellIndex.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label_CellIndex.Location = new System.Drawing.Point(0, 0);
-            this.label_CellIndex.Name = "label_CellIndex";
-            this.label_CellIndex.Size = new System.Drawing.Size(204, 16);
-            this.label_CellIndex.TabIndex = 3;
-            this.label_CellIndex.Text = "...";
-            // 
-            // textBox_CellText
-            // 
-            this.textBox_CellText.Dock = System.Windows.Forms.DockStyle.Top;
-            this.textBox_CellText.Location = new System.Drawing.Point(0, 16);
-            this.textBox_CellText.Multiline = true;
-            this.textBox_CellText.Name = "textBox_CellText";
-            this.textBox_CellText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox_CellText.Size = new System.Drawing.Size(204, 65);
-            this.textBox_CellText.TabIndex = 4;
-            this.textBox_CellText.WordWrap = false;
-            this.textBox_CellText.TextChanged += new System.EventHandler(this.textBox_CellText_TextChanged);
-            // 
-            // panel1
-            // 
-            this.panel1.AutoScroll = true;
-            this.panel1.Controls.Add(this.pictureBox_SelectedCellImage);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 81);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(204, 112);
-            this.panel1.TabIndex = 5;
-            // 
-            // pictureBox_SelectedCellImage
-            // 
-            this.pictureBox_SelectedCellImage.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox_SelectedCellImage.Name = "pictureBox_SelectedCellImage";
-            this.pictureBox_SelectedCellImage.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox_SelectedCellImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox_SelectedCellImage.TabIndex = 0;
-            this.pictureBox_SelectedCellImage.TabStop = false;
-            // 
-            // toolStripButton_RunOCR
-            // 
-            this.toolStripButton_RunOCR.AutoSize = false;
-            this.toolStripButton_RunOCR.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton_RunOCR.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_RunOCR.Image")));
-            this.toolStripButton_RunOCR.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_RunOCR.Name = "toolStripButton_RunOCR";
-            this.toolStripButton_RunOCR.Size = new System.Drawing.Size(80, 22);
-            this.toolStripButton_RunOCR.Text = "RunOCR";
-            this.toolStripButton_RunOCR.ToolTipText = "Run OCR";
-            this.toolStripButton_RunOCR.Click += new System.EventHandler(this.toolStripButton_RunOCR_Click);
-            // 
-            // toolStripTextBox_IndexCollection
-            // 
-            this.toolStripTextBox_IndexCollection.AutoSize = false;
-            this.toolStripTextBox_IndexCollection.Name = "toolStripTextBox_IndexCollection";
-            this.toolStripTextBox_IndexCollection.Size = new System.Drawing.Size(300, 25);
-            // 
-            // toolStripComboBox_IndexCollectFlag
-            // 
-            this.toolStripComboBox_IndexCollectFlag.AutoSize = false;
-            this.toolStripComboBox_IndexCollectFlag.Items.AddRange(new object[] {
-            "OFF",
-            "ON"});
-            this.toolStripComboBox_IndexCollectFlag.Name = "toolStripComboBox_IndexCollectFlag";
-            this.toolStripComboBox_IndexCollectFlag.Size = new System.Drawing.Size(60, 25);
-            this.toolStripComboBox_IndexCollectFlag.Text = "OFF";
-            // 
-            // toolStripButton_SaveImage
-            // 
-            this.toolStripButton_SaveImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton_SaveImage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_SaveImage.Image")));
-            this.toolStripButton_SaveImage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_SaveImage.Name = "toolStripButton_SaveImage";
-            this.toolStripButton_SaveImage.Size = new System.Drawing.Size(67, 22);
-            this.toolStripButton_SaveImage.Text = "SaveImage";
-            this.toolStripButton_SaveImage.Click += new System.EventHandler(this.toolStripButton_SaveImage_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripButton_SaveAllImage
-            // 
-            this.toolStripButton_SaveAllImage.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButton_SaveAllImage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_SaveAllImage.Image")));
-            this.toolStripButton_SaveAllImage.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton_SaveAllImage.Name = "toolStripButton_SaveAllImage";
-            this.toolStripButton_SaveAllImage.Size = new System.Drawing.Size(81, 22);
-            this.toolStripButton_SaveAllImage.Text = "SaveAllImage";
-            this.toolStripButton_SaveAllImage.Click += new System.EventHandler(this.toolStripButton_SaveAllImage_Click);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
             // 
             // Form1
             // 
@@ -707,12 +708,21 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.splitContainer3.Panel1.ResumeLayout(false);
+            this.splitContainer3.Panel1.PerformLayout();
+            this.splitContainer3.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
+            this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Image)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WhiteList)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel1.PerformLayout();
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).EndInit();
             this.panel_Frame2.ResumeLayout(false);
             this.panel_Frame2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).EndInit();
@@ -725,15 +735,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_WhiteList)).EndInit();
-            this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel1.PerformLayout();
-            this.splitContainer3.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-            this.splitContainer3.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_SelectedCellImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -776,8 +777,6 @@
         private System.Windows.Forms.TrackBar trackBar_CellAreaMax;
         private System.Windows.Forms.Label label_CellAreaMax;
         private System.Windows.Forms.DataGridView dataGridView_WhiteList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_WhiteList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column_SelectIndex;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox_SelectedCellImage;
@@ -792,6 +791,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripButton toolStripButton_SaveAllImage;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_WhiteList;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column_SelectIndex;
     }
 }
 

@@ -116,6 +116,15 @@ namespace FormOCR
                 OCR.FindCellRects(-1);
             }
 
+            int pageIndex = 0;
+            if (toolStripComboBox_RunMode.Text != "Check")
+            {
+                for (pageIndex = 0; pageIndex < OCR.pageCount; pageIndex++)
+                {
+                    RunOCR(pageIndex);
+                }
+            }
+
             OCR.UpdateRunFlag = false;
 
             toolStripComboBox_PageSelector.Items.Clear();
@@ -124,7 +133,7 @@ namespace FormOCR
             toolStripComboBox_PageSelector.Text = items[0];
             toolStripLabel_PageMax.Text = " / " + OCR.pageCount.ToString();
 
-            int pageIndex = toolStripComboBox_PageSelector.SelectedIndex; if (pageIndex < 0) return;
+            pageIndex = toolStripComboBox_PageSelector.SelectedIndex; if (pageIndex < 0) return;
 
             pictureBoxUpdate(pictureBox_Image, OCR.getSrcImage(pageIndex));
             toolStripComboBox_ProcessImageSelector.Items.Clear();
@@ -135,8 +144,7 @@ namespace FormOCR
 
             OCR.UpdateRunFlag = true;
 
-            if (toolStripComboBox_RunMode.Text == "Check") return;
-
+            if (toolStripComboBox_RunMode.Text != "Check") { toolStripComboBox_ProcessImageSelector.Text = Items[Items.Length - 1]; }
 
         }
 
@@ -388,6 +396,17 @@ namespace FormOCR
         {
             int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
 
+            RunOCR(pageIndex);
+
+            toolStripComboBox_ProcessImageSelector.Items.Clear();
+            string[] Items = OCR.ProcessNameList[pageIndex].ToArray();
+            toolStripComboBox_ProcessImageSelector.Items.AddRange(Items);
+
+            toolStripComboBox_ProcessImageSelector.Text = Items[Items.Length - 1];
+        }
+
+        private void RunOCR(int pageIndex)
+        {
             List<string> cellIndexLists = new List<string>();
 
             for (int i = 0; i < dataGridView_WhiteList.Rows.Count - 1; i++)
@@ -401,12 +420,6 @@ namespace FormOCR
             }
 
             OCR.addProcessImageResultOCR(pageIndex, string.Join(",", cellIndexLists));
-
-            toolStripComboBox_ProcessImageSelector.Items.Clear();
-            string[] Items = OCR.ProcessNameList[pageIndex].ToArray();
-            toolStripComboBox_ProcessImageSelector.Items.AddRange(Items);
-
-            toolStripComboBox_ProcessImageSelector.Text = Items[Items.Length - 1];
         }
 
         private void textBox_CellText_TextChanged(object sender, EventArgs e)
@@ -460,7 +473,7 @@ namespace FormOCR
 
             for (int pageIndex = 0; pageIndex < pageIndexMax; pageIndex++)
             {
-                string pageString = (pageIndex+1).ToString();
+                string pageString = (pageIndex + 1).ToString();
                 int viewIndexMax = OCR.ProcessImageList[pageIndex].Count;
 
                 for (int viewIndex = 0; viewIndex < viewIndexMax; viewIndex++)
@@ -468,7 +481,7 @@ namespace FormOCR
                     string viewindstr = (viewIndex + 1).ToString();
                     string viewname = OCR.ProcessNameList[pageIndex][viewIndex];
 
-                    string savename = Path.Combine(dirPath,filename+"_"+pageString+"_"+viewindstr+"_"+viewname+Path.GetExtension(sfd.FileName));
+                    string savename = Path.Combine(dirPath, filename + "_" + pageString + "_" + viewindstr + "_" + viewname + Path.GetExtension(sfd.FileName));
                     OCR.ProcessImageList[pageIndex][viewIndex].Save(savename);
                 }
             }
