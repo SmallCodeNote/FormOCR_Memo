@@ -63,13 +63,16 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_OpenFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBox_RunMode = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripComboBox_BackgroundImageType = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripComboBox_ProcessImageSelector = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBox_PageSelector = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel_PageMax = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_SaveFile = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel_MousePosition = new System.Windows.Forms.ToolStripLabel();
+            this.trackBar_CellAreaMax = new System.Windows.Forms.TrackBar();
+            this.label_CellAreaMax = new System.Windows.Forms.Label();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -95,6 +98,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughTheta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -127,10 +131,11 @@
             this.toolStripTextBox_WhiteList,
             this.toolStripSeparator1,
             this.toolStripLabel2,
-            this.toolStripTextBox_IndexSelect});
+            this.toolStripTextBox_IndexSelect,
+            this.toolStripLabel_MousePosition});
             this.toolStrip2.Location = new System.Drawing.Point(3, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(757, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(857, 25);
             this.toolStrip2.TabIndex = 0;
             // 
             // toolStripLabel1
@@ -189,6 +194,7 @@
             this.pictureBox_Image.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Image.TabIndex = 0;
             this.pictureBox_Image.TabStop = false;
+            this.pictureBox_Image.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Image_MouseMove);
             this.pictureBox_Image.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox_Image_MouseUp);
             // 
             // splitContainer2
@@ -258,6 +264,8 @@
             // 
             // panel_Frame2
             // 
+            this.panel_Frame2.Controls.Add(this.trackBar_CellAreaMax);
+            this.panel_Frame2.Controls.Add(this.label_CellAreaMax);
             this.panel_Frame2.Controls.Add(this.trackBar_CellAreaMin);
             this.panel_Frame2.Controls.Add(this.label_CellAreaMin);
             this.panel_Frame2.Controls.Add(this.label2);
@@ -277,7 +285,7 @@
             this.panel_Frame2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_Frame2.Location = new System.Drawing.Point(0, 0);
             this.panel_Frame2.Name = "panel_Frame2";
-            this.panel_Frame2.Size = new System.Drawing.Size(204, 432);
+            this.panel_Frame2.Size = new System.Drawing.Size(204, 596);
             this.panel_Frame2.TabIndex = 0;
             // 
             // trackBar_CellAreaMin
@@ -285,7 +293,7 @@
             this.trackBar_CellAreaMin.Dock = System.Windows.Forms.DockStyle.Top;
             this.trackBar_CellAreaMin.Location = new System.Drawing.Point(0, 378);
             this.trackBar_CellAreaMin.Maximum = 10000;
-            this.trackBar_CellAreaMin.Minimum = 100;
+            this.trackBar_CellAreaMin.Minimum = 50;
             this.trackBar_CellAreaMin.Name = "trackBar_CellAreaMin";
             this.trackBar_CellAreaMin.Size = new System.Drawing.Size(204, 45);
             this.trackBar_CellAreaMin.SmallChange = 100;
@@ -463,7 +471,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton_OpenFile,
             this.toolStripComboBox_RunMode,
-            this.toolStripComboBox_BackgroundImageType,
+            this.toolStripComboBox_ProcessImageSelector,
             this.toolStripSeparator2,
             this.toolStripLabel3,
             this.toolStripComboBox_PageSelector,
@@ -495,11 +503,11 @@
             this.toolStripComboBox_RunMode.Size = new System.Drawing.Size(80, 23);
             this.toolStripComboBox_RunMode.Text = "Check";
             // 
-            // toolStripComboBox_BackgroundImageType
+            // toolStripComboBox_ProcessImageSelector
             // 
-            this.toolStripComboBox_BackgroundImageType.Name = "toolStripComboBox_BackgroundImageType";
-            this.toolStripComboBox_BackgroundImageType.Size = new System.Drawing.Size(105, 25);
-            this.toolStripComboBox_BackgroundImageType.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox_BackgroundImageType_SelectedIndexChanged);
+            this.toolStripComboBox_ProcessImageSelector.Name = "toolStripComboBox_ProcessImageSelector";
+            this.toolStripComboBox_ProcessImageSelector.Size = new System.Drawing.Size(105, 25);
+            this.toolStripComboBox_ProcessImageSelector.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBox_BackgroundImageType_SelectedIndexChanged);
             // 
             // toolStripSeparator2
             // 
@@ -539,6 +547,36 @@
             this.toolStripButton_SaveFile.Size = new System.Drawing.Size(53, 22);
             this.toolStripButton_SaveFile.Text = "SaveFile";
             this.toolStripButton_SaveFile.Click += new System.EventHandler(this.toolStripButton_SaveFile_Click);
+            // 
+            // toolStripLabel_MousePosition
+            // 
+            this.toolStripLabel_MousePosition.AutoSize = false;
+            this.toolStripLabel_MousePosition.Name = "toolStripLabel_MousePosition";
+            this.toolStripLabel_MousePosition.Size = new System.Drawing.Size(100, 22);
+            this.toolStripLabel_MousePosition.Text = "...";
+            // 
+            // trackBar_CellAreaMax
+            // 
+            this.trackBar_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar_CellAreaMax.LargeChange = 10;
+            this.trackBar_CellAreaMax.Location = new System.Drawing.Point(0, 435);
+            this.trackBar_CellAreaMax.Maximum = 1000;
+            this.trackBar_CellAreaMax.Minimum = 1;
+            this.trackBar_CellAreaMax.Name = "trackBar_CellAreaMax";
+            this.trackBar_CellAreaMax.Size = new System.Drawing.Size(204, 45);
+            this.trackBar_CellAreaMax.TabIndex = 16;
+            this.trackBar_CellAreaMax.TickFrequency = 50;
+            this.trackBar_CellAreaMax.Value = 100;
+            this.trackBar_CellAreaMax.ValueChanged += new System.EventHandler(this.trackBar_CellAreaMax_ValueChanged);
+            // 
+            // label_CellAreaMax
+            // 
+            this.label_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_CellAreaMax.Location = new System.Drawing.Point(0, 423);
+            this.label_CellAreaMax.Name = "label_CellAreaMax";
+            this.label_CellAreaMax.Size = new System.Drawing.Size(204, 12);
+            this.label_CellAreaMax.TabIndex = 17;
+            this.label_CellAreaMax.Text = "CellAreaMax";
             // 
             // Form1
             // 
@@ -586,6 +624,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_CellAreaMax)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -607,7 +646,7 @@
         private System.Windows.Forms.Label label_CellIndex;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBox_RunMode;
         private System.Windows.Forms.ToolStripButton toolStripButton_SaveFile;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox_BackgroundImageType;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBox_ProcessImageSelector;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel_Frame2;
@@ -632,6 +671,9 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel_PageMax;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel_MousePosition;
+        private System.Windows.Forms.TrackBar trackBar_CellAreaMax;
+        private System.Windows.Forms.Label label_CellAreaMax;
     }
 }
 

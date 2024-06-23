@@ -80,16 +80,18 @@ namespace FormOCR
             toolStripComboBox_PageSelector.Text = items[0];
             toolStripLabel_PageMax.Text = " / " + OCR.SrcImageList.Count.ToString();
 
-            if (toolStripComboBox_PageSelector.SelectedIndex < 0) return;
 
-            OCR.FindCellRects(toolStripComboBox_PageSelector.SelectedIndex);
-            pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.SrcImageList[0]));
+            int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
 
-            toolStripComboBox_BackgroundImageType.Items.Clear();
+            if (pageIndex < 0) return;
+            OCR.FindCellRects(pageIndex);
+            pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.SrcImageList[pageIndex]));
 
-            string[] Items = OCR.ProcessNameList.ToArray();
-            toolStripComboBox_BackgroundImageType.Items.AddRange(Items);
-            toolStripComboBox_BackgroundImageType.Text = (string)Items[0];
+            toolStripComboBox_ProcessImageSelector.Items.Clear();
+
+            string[] Items = OCR.ProcessNameList[pageIndex].ToArray();
+            toolStripComboBox_ProcessImageSelector.Items.AddRange(Items);
+            toolStripComboBox_ProcessImageSelector.Text = (string)Items[0];
             
             if (toolStripComboBox_RunMode.Text == "Check") return;
 
@@ -152,13 +154,13 @@ namespace FormOCR
 
         private void pictureBox_Image_MouseUp(object sender, MouseEventArgs e)
         {
-            if (OCR.CellRects == null) return;
+            if (OCR.CellRectCorners == null) return;
             Point clickedPoint = new Point(e.X, e.Y);
             bool find = false;
 
-            for (int i = 0; i < OCR.CellRects.Count; i++)
+            for (int i = 0; i < OCR.CellRectCorners.Count; i++)
             {
-                var rect = OCR.CellRects[i];
+                var rect = OCR.CellRectCorners[i];
 
                 if (Cv2.PointPolygonTest(rect, clickedPoint, false) >= 0)
                 {
@@ -212,8 +214,11 @@ namespace FormOCR
 
         private void MainPictureBoxUpdate()
         {
-            if (toolStripComboBox_BackgroundImageType.SelectedIndex < 0 || OCR.ProcessImageList.Count <= toolStripComboBox_BackgroundImageType.SelectedIndex) return;
-            pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.ProcessImageList[toolStripComboBox_BackgroundImageType.SelectedIndex]));
+            int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
+            int viewIndex = toolStripComboBox_ProcessImageSelector.SelectedIndex;
+
+            if (toolStripComboBox_ProcessImageSelector.SelectedIndex < 0 || OCR.ProcessImageList[pageIndex].Count <= viewIndex) return;
+            pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.ProcessImageList[pageIndex][viewIndex]));
         }
 
         private void trackBar_HoughRho_ValueChanged(object sender, EventArgs e)
@@ -286,21 +291,41 @@ namespace FormOCR
 
         private void toolStripComboBox_PageSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (toolStripComboBox_PageSelector.SelectedIndex < 0) return;
+            string ProcessImageSelector = toolStripComboBox_ProcessImageSelector.Text;
 
-            OCR.FindCellRects(toolStripComboBox_PageSelector.SelectedIndex);
+            int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
+            if (pageIndex < 0) return;
+
+            OCR.FindCellRects(pageIndex);
             pictureBoxUpdate(pictureBox_Image, new System.Drawing.Bitmap(OCR.SrcImageList[0]));
 
-            toolStripComboBox_BackgroundImageType.Items.Clear();
+            toolStripComboBox_ProcessImageSelector.Items.Clear();
+            
+            string[] Items = OCR.ProcessNameList[pageIndex].ToArray();
 
-            string[] Items = OCR.ProcessNameList.ToArray();
-            toolStripComboBox_BackgroundImageType.Items.AddRange(Items);
-            toolStripComboBox_BackgroundImageType.Text = (string)Items[0];
+            toolStripComboBox_ProcessImageSelector.Items.AddRange(Items);
+            toolStripComboBox_ProcessImageSelector.Text = (string)Items[0];
+
+             toolStripComboBox_ProcessImageSelector.Text = ProcessImageSelector;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void pictureBox_Image_MouseMove(object sender, MouseEventArgs e)
+        {
+            toolStripLabel_MousePosition.Text = e.Location.ToString();
+        }
+
+        private void trackBar_CellAreaMax_ValueChanged(object sender, EventArgs e)
+        {
+            int value = trackBar_CellAreaMax.Value * 100;
+            label_CellAreaMax.Text = "CellAreaMax : " + value.ToString();
+            OCR.CellAreaMax = value;
+
+            OCR.FindCellRects(); MainPictureBoxUpdate();
         }
     }
 }
