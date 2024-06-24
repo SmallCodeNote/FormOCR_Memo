@@ -46,6 +46,8 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.pictureBox_Image = new System.Windows.Forms.PictureBox();
             this.dataGridView_WhiteList = new System.Windows.Forms.DataGridView();
+            this.Column_WhiteList = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column_SelectIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox_SelectedCellImage = new System.Windows.Forms.PictureBox();
@@ -70,6 +72,9 @@
             this.trackBar_HoughRho = new System.Windows.Forms.TrackBar();
             this.label_HoughRho = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.trackBar_Threshold1 = new System.Windows.Forms.TrackBar();
+            this.label_Threshold1 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripButton_OpenFile = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBox_RunMode = new System.Windows.Forms.ToolStripComboBox();
@@ -80,8 +85,12 @@
             this.toolStripLabel_PageMax = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton_SaveFile = new System.Windows.Forms.ToolStripButton();
-            this.Column_WhiteList = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column_SelectIndex = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comboBox_ThresholdTypes = new System.Windows.Forms.ComboBox();
+            this.label_ThresholdType = new System.Windows.Forms.Label();
+            this.label_Threshold2 = new System.Windows.Forms.Label();
+            this.trackBar_Threshold2 = new System.Windows.Forms.TrackBar();
+            this.label_HoughLineThickness = new System.Windows.Forms.Label();
+            this.trackBar_HoughLineThickness = new System.Windows.Forms.TrackBar();
             this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
             this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -112,7 +121,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughTheta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Threshold1)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Threshold2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughLineThickness)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStripContainer1
@@ -154,7 +166,7 @@
             this.toolStripTextBox_IndexCollection});
             this.toolStrip2.Location = new System.Drawing.Point(3, 0);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(765, 25);
+            this.toolStrip2.Size = new System.Drawing.Size(734, 25);
             this.toolStrip2.TabIndex = 0;
             // 
             // toolStripSeparator1
@@ -300,6 +312,16 @@
             this.dataGridView_WhiteList.TabIndex = 0;
             this.dataGridView_WhiteList.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView_WhiteList_CellPainting);
             // 
+            // Column_WhiteList
+            // 
+            this.Column_WhiteList.HeaderText = "WhiteList";
+            this.Column_WhiteList.Name = "Column_WhiteList";
+            // 
+            // Column_SelectIndex
+            // 
+            this.Column_SelectIndex.HeaderText = "SelectCellIndex";
+            this.Column_SelectIndex.Name = "Column_SelectIndex";
+            // 
             // splitContainer2
             // 
             this.splitContainer2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -371,6 +393,8 @@
             this.panel_Frame2.Controls.Add(this.trackBar_CellAreaMin);
             this.panel_Frame2.Controls.Add(this.label_CellAreaMin);
             this.panel_Frame2.Controls.Add(this.label2);
+            this.panel_Frame2.Controls.Add(this.trackBar_HoughLineThickness);
+            this.panel_Frame2.Controls.Add(this.label_HoughLineThickness);
             this.panel_Frame2.Controls.Add(this.trackBar_HoughRangeD);
             this.panel_Frame2.Controls.Add(this.label_HoughRangeD);
             this.panel_Frame2.Controls.Add(this.trackBar_HoughMaxLineGap);
@@ -384,17 +408,24 @@
             this.panel_Frame2.Controls.Add(this.trackBar_HoughRho);
             this.panel_Frame2.Controls.Add(this.label_HoughRho);
             this.panel_Frame2.Controls.Add(this.label1);
+            this.panel_Frame2.Controls.Add(this.trackBar_Threshold2);
+            this.panel_Frame2.Controls.Add(this.label_Threshold2);
+            this.panel_Frame2.Controls.Add(this.trackBar_Threshold1);
+            this.panel_Frame2.Controls.Add(this.label_Threshold1);
+            this.panel_Frame2.Controls.Add(this.comboBox_ThresholdTypes);
+            this.panel_Frame2.Controls.Add(this.label_ThresholdType);
+            this.panel_Frame2.Controls.Add(this.label3);
             this.panel_Frame2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_Frame2.Location = new System.Drawing.Point(0, 0);
             this.panel_Frame2.Name = "panel_Frame2";
-            this.panel_Frame2.Size = new System.Drawing.Size(204, 596);
+            this.panel_Frame2.Size = new System.Drawing.Size(204, 665);
             this.panel_Frame2.TabIndex = 0;
             // 
             // trackBar_CellAreaMax
             // 
             this.trackBar_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
             this.trackBar_CellAreaMax.LargeChange = 10;
-            this.trackBar_CellAreaMax.Location = new System.Drawing.Point(0, 435);
+            this.trackBar_CellAreaMax.Location = new System.Drawing.Point(0, 650);
             this.trackBar_CellAreaMax.Maximum = 1000;
             this.trackBar_CellAreaMax.Minimum = 1;
             this.trackBar_CellAreaMax.Name = "trackBar_CellAreaMax";
@@ -407,7 +438,7 @@
             // label_CellAreaMax
             // 
             this.label_CellAreaMax.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_CellAreaMax.Location = new System.Drawing.Point(0, 423);
+            this.label_CellAreaMax.Location = new System.Drawing.Point(0, 638);
             this.label_CellAreaMax.Name = "label_CellAreaMax";
             this.label_CellAreaMax.Size = new System.Drawing.Size(204, 12);
             this.label_CellAreaMax.TabIndex = 17;
@@ -416,7 +447,7 @@
             // trackBar_CellAreaMin
             // 
             this.trackBar_CellAreaMin.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_CellAreaMin.Location = new System.Drawing.Point(0, 378);
+            this.trackBar_CellAreaMin.Location = new System.Drawing.Point(0, 593);
             this.trackBar_CellAreaMin.Maximum = 10000;
             this.trackBar_CellAreaMin.Minimum = 50;
             this.trackBar_CellAreaMin.Name = "trackBar_CellAreaMin";
@@ -430,7 +461,7 @@
             // label_CellAreaMin
             // 
             this.label_CellAreaMin.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_CellAreaMin.Location = new System.Drawing.Point(0, 366);
+            this.label_CellAreaMin.Location = new System.Drawing.Point(0, 581);
             this.label_CellAreaMin.Name = "label_CellAreaMin";
             this.label_CellAreaMin.Size = new System.Drawing.Size(204, 12);
             this.label_CellAreaMin.TabIndex = 15;
@@ -441,7 +472,7 @@
             this.label2.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label2.Location = new System.Drawing.Point(0, 354);
+            this.label2.Location = new System.Drawing.Point(0, 569);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(204, 12);
             this.label2.TabIndex = 13;
@@ -450,7 +481,7 @@
             // trackBar_HoughRangeD
             // 
             this.trackBar_HoughRangeD.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_HoughRangeD.Location = new System.Drawing.Point(0, 309);
+            this.trackBar_HoughRangeD.Location = new System.Drawing.Point(0, 467);
             this.trackBar_HoughRangeD.Maximum = 100;
             this.trackBar_HoughRangeD.Minimum = 1;
             this.trackBar_HoughRangeD.Name = "trackBar_HoughRangeD";
@@ -463,7 +494,7 @@
             // label_HoughRangeD
             // 
             this.label_HoughRangeD.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_HoughRangeD.Location = new System.Drawing.Point(0, 297);
+            this.label_HoughRangeD.Location = new System.Drawing.Point(0, 455);
             this.label_HoughRangeD.Name = "label_HoughRangeD";
             this.label_HoughRangeD.Size = new System.Drawing.Size(204, 12);
             this.label_HoughRangeD.TabIndex = 12;
@@ -472,7 +503,7 @@
             // trackBar_HoughMaxLineGap
             // 
             this.trackBar_HoughMaxLineGap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_HoughMaxLineGap.Location = new System.Drawing.Point(0, 252);
+            this.trackBar_HoughMaxLineGap.Location = new System.Drawing.Point(0, 410);
             this.trackBar_HoughMaxLineGap.Maximum = 25;
             this.trackBar_HoughMaxLineGap.Minimum = 1;
             this.trackBar_HoughMaxLineGap.Name = "trackBar_HoughMaxLineGap";
@@ -485,7 +516,7 @@
             // label_HoughMaxLineGap
             // 
             this.label_HoughMaxLineGap.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_HoughMaxLineGap.Location = new System.Drawing.Point(0, 240);
+            this.label_HoughMaxLineGap.Location = new System.Drawing.Point(0, 398);
             this.label_HoughMaxLineGap.Name = "label_HoughMaxLineGap";
             this.label_HoughMaxLineGap.Size = new System.Drawing.Size(204, 12);
             this.label_HoughMaxLineGap.TabIndex = 10;
@@ -494,7 +525,7 @@
             // trackBar_HoughMinLineLength
             // 
             this.trackBar_HoughMinLineLength.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_HoughMinLineLength.Location = new System.Drawing.Point(0, 195);
+            this.trackBar_HoughMinLineLength.Location = new System.Drawing.Point(0, 353);
             this.trackBar_HoughMinLineLength.Maximum = 90;
             this.trackBar_HoughMinLineLength.Minimum = 1;
             this.trackBar_HoughMinLineLength.Name = "trackBar_HoughMinLineLength";
@@ -507,7 +538,7 @@
             // label_HoughMinLineLength
             // 
             this.label_HoughMinLineLength.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_HoughMinLineLength.Location = new System.Drawing.Point(0, 183);
+            this.label_HoughMinLineLength.Location = new System.Drawing.Point(0, 341);
             this.label_HoughMinLineLength.Name = "label_HoughMinLineLength";
             this.label_HoughMinLineLength.Size = new System.Drawing.Size(204, 12);
             this.label_HoughMinLineLength.TabIndex = 8;
@@ -516,7 +547,7 @@
             // trackBar_HoughThreshold
             // 
             this.trackBar_HoughThreshold.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_HoughThreshold.Location = new System.Drawing.Point(0, 138);
+            this.trackBar_HoughThreshold.Location = new System.Drawing.Point(0, 296);
             this.trackBar_HoughThreshold.Maximum = 250;
             this.trackBar_HoughThreshold.Minimum = 1;
             this.trackBar_HoughThreshold.Name = "trackBar_HoughThreshold";
@@ -529,7 +560,7 @@
             // label_HoughThreshold
             // 
             this.label_HoughThreshold.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_HoughThreshold.Location = new System.Drawing.Point(0, 126);
+            this.label_HoughThreshold.Location = new System.Drawing.Point(0, 284);
             this.label_HoughThreshold.Name = "label_HoughThreshold";
             this.label_HoughThreshold.Size = new System.Drawing.Size(204, 12);
             this.label_HoughThreshold.TabIndex = 6;
@@ -538,7 +569,7 @@
             // trackBar_HoughTheta
             // 
             this.trackBar_HoughTheta.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_HoughTheta.Location = new System.Drawing.Point(0, 81);
+            this.trackBar_HoughTheta.Location = new System.Drawing.Point(0, 239);
             this.trackBar_HoughTheta.Maximum = 90;
             this.trackBar_HoughTheta.Minimum = 1;
             this.trackBar_HoughTheta.Name = "trackBar_HoughTheta";
@@ -551,7 +582,7 @@
             // label_HoughTheta
             // 
             this.label_HoughTheta.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_HoughTheta.Location = new System.Drawing.Point(0, 69);
+            this.label_HoughTheta.Location = new System.Drawing.Point(0, 227);
             this.label_HoughTheta.Name = "label_HoughTheta";
             this.label_HoughTheta.Size = new System.Drawing.Size(204, 12);
             this.label_HoughTheta.TabIndex = 4;
@@ -560,7 +591,7 @@
             // trackBar_HoughRho
             // 
             this.trackBar_HoughRho.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackBar_HoughRho.Location = new System.Drawing.Point(0, 24);
+            this.trackBar_HoughRho.Location = new System.Drawing.Point(0, 182);
             this.trackBar_HoughRho.Maximum = 50;
             this.trackBar_HoughRho.Minimum = 10;
             this.trackBar_HoughRho.Name = "trackBar_HoughRho";
@@ -573,7 +604,7 @@
             // label_HoughRho
             // 
             this.label_HoughRho.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label_HoughRho.Location = new System.Drawing.Point(0, 12);
+            this.label_HoughRho.Location = new System.Drawing.Point(0, 170);
             this.label_HoughRho.Name = "label_HoughRho";
             this.label_HoughRho.Size = new System.Drawing.Size(204, 12);
             this.label_HoughRho.TabIndex = 2;
@@ -584,11 +615,44 @@
             this.label1.BackColor = System.Drawing.SystemColors.ControlDark;
             this.label1.Dock = System.Windows.Forms.DockStyle.Top;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Location = new System.Drawing.Point(0, 158);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(204, 12);
             this.label1.TabIndex = 1;
             this.label1.Text = "Hough Parameter";
+            // 
+            // trackBar_Threshold1
+            // 
+            this.trackBar_Threshold1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar_Threshold1.Location = new System.Drawing.Point(0, 56);
+            this.trackBar_Threshold1.Maximum = 255;
+            this.trackBar_Threshold1.Name = "trackBar_Threshold1";
+            this.trackBar_Threshold1.Size = new System.Drawing.Size(204, 45);
+            this.trackBar_Threshold1.SmallChange = 100;
+            this.trackBar_Threshold1.TabIndex = 20;
+            this.trackBar_Threshold1.TickFrequency = 16;
+            this.trackBar_Threshold1.Value = 128;
+            this.trackBar_Threshold1.ValueChanged += new System.EventHandler(this.trackBar_Threshold_ValueChanged);
+            // 
+            // label_Threshold1
+            // 
+            this.label_Threshold1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_Threshold1.Location = new System.Drawing.Point(0, 44);
+            this.label_Threshold1.Name = "label_Threshold1";
+            this.label_Threshold1.Size = new System.Drawing.Size(204, 12);
+            this.label_Threshold1.TabIndex = 19;
+            this.label_Threshold1.Text = "Threshold1";
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label3.Location = new System.Drawing.Point(0, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(204, 12);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "Threshold Parameter";
             // 
             // toolStrip1
             // 
@@ -673,15 +737,77 @@
             this.toolStripButton_SaveFile.Text = "SaveFile";
             this.toolStripButton_SaveFile.Click += new System.EventHandler(this.toolStripButton_SaveFile_Click);
             // 
-            // Column_WhiteList
+            // comboBox_ThresholdTypes
             // 
-            this.Column_WhiteList.HeaderText = "WhiteList";
-            this.Column_WhiteList.Name = "Column_WhiteList";
+            this.comboBox_ThresholdTypes.Dock = System.Windows.Forms.DockStyle.Top;
+            this.comboBox_ThresholdTypes.FormattingEnabled = true;
+            this.comboBox_ThresholdTypes.Items.AddRange(new object[] {
+            "Binary",
+            "BinaryInv",
+            "Mask",
+            "Otsu",
+            "Tozero",
+            "TozeroInv",
+            "Triangle",
+            "Trunc"});
+            this.comboBox_ThresholdTypes.Location = new System.Drawing.Point(0, 24);
+            this.comboBox_ThresholdTypes.Name = "comboBox_ThresholdTypes";
+            this.comboBox_ThresholdTypes.Size = new System.Drawing.Size(204, 20);
+            this.comboBox_ThresholdTypes.TabIndex = 21;
+            this.comboBox_ThresholdTypes.Text = "Binary";
+            this.comboBox_ThresholdTypes.SelectedIndexChanged += new System.EventHandler(this.comboBox_ThresholdTypes_SelectedIndexChanged);
             // 
-            // Column_SelectIndex
+            // label_ThresholdType
             // 
-            this.Column_SelectIndex.HeaderText = "SelectCellIndex";
-            this.Column_SelectIndex.Name = "Column_SelectIndex";
+            this.label_ThresholdType.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_ThresholdType.Location = new System.Drawing.Point(0, 12);
+            this.label_ThresholdType.Name = "label_ThresholdType";
+            this.label_ThresholdType.Size = new System.Drawing.Size(204, 12);
+            this.label_ThresholdType.TabIndex = 22;
+            this.label_ThresholdType.Text = "ThresholdType";
+            // 
+            // label_Threshold2
+            // 
+            this.label_Threshold2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_Threshold2.Location = new System.Drawing.Point(0, 101);
+            this.label_Threshold2.Name = "label_Threshold2";
+            this.label_Threshold2.Size = new System.Drawing.Size(204, 12);
+            this.label_Threshold2.TabIndex = 23;
+            this.label_Threshold2.Text = "Threshold2";
+            // 
+            // trackBar_Threshold2
+            // 
+            this.trackBar_Threshold2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar_Threshold2.Location = new System.Drawing.Point(0, 113);
+            this.trackBar_Threshold2.Maximum = 255;
+            this.trackBar_Threshold2.Name = "trackBar_Threshold2";
+            this.trackBar_Threshold2.Size = new System.Drawing.Size(204, 45);
+            this.trackBar_Threshold2.SmallChange = 100;
+            this.trackBar_Threshold2.TabIndex = 24;
+            this.trackBar_Threshold2.TickFrequency = 16;
+            this.trackBar_Threshold2.Value = 255;
+            this.trackBar_Threshold2.ValueChanged += new System.EventHandler(this.trackBar_Threshold2_ValueChanged);
+            // 
+            // label_HoughLineThickness
+            // 
+            this.label_HoughLineThickness.Dock = System.Windows.Forms.DockStyle.Top;
+            this.label_HoughLineThickness.Location = new System.Drawing.Point(0, 512);
+            this.label_HoughLineThickness.Name = "label_HoughLineThickness";
+            this.label_HoughLineThickness.Size = new System.Drawing.Size(204, 12);
+            this.label_HoughLineThickness.TabIndex = 25;
+            this.label_HoughLineThickness.Text = "LineThickness";
+            // 
+            // trackBar_HoughLineThickness
+            // 
+            this.trackBar_HoughLineThickness.Dock = System.Windows.Forms.DockStyle.Top;
+            this.trackBar_HoughLineThickness.Location = new System.Drawing.Point(0, 524);
+            this.trackBar_HoughLineThickness.Minimum = 1;
+            this.trackBar_HoughLineThickness.Name = "trackBar_HoughLineThickness";
+            this.trackBar_HoughLineThickness.Size = new System.Drawing.Size(204, 45);
+            this.trackBar_HoughLineThickness.TabIndex = 26;
+            this.trackBar_HoughLineThickness.TickFrequency = 2;
+            this.trackBar_HoughLineThickness.Value = 4;
+            this.trackBar_HoughLineThickness.ValueChanged += new System.EventHandler(this.trackBar_HoughLineThickness_ValueChanged);
             // 
             // Form1
             // 
@@ -733,8 +859,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughTheta)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughRho)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Threshold1)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_Threshold2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_HoughLineThickness)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -793,6 +922,15 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column_WhiteList;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column_SelectIndex;
+        private System.Windows.Forms.TrackBar trackBar_Threshold1;
+        private System.Windows.Forms.Label label_Threshold1;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBox_ThresholdTypes;
+        private System.Windows.Forms.TrackBar trackBar_Threshold2;
+        private System.Windows.Forms.Label label_Threshold2;
+        private System.Windows.Forms.Label label_ThresholdType;
+        private System.Windows.Forms.TrackBar trackBar_HoughLineThickness;
+        private System.Windows.Forms.Label label_HoughLineThickness;
     }
 }
 

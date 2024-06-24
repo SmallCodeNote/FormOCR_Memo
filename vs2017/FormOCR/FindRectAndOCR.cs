@@ -30,6 +30,9 @@ namespace FormOCR
         public int CellAreaMin = 1500;
         public int CellAreaMax = 40000;
 
+        public double Threshold1 = 0;
+        public double Threshold2 = 255;
+        public ThresholdTypes ThresholdTypesValue = ThresholdTypes.Binary;
 
         public FindRectAndOCR()
         {
@@ -116,6 +119,7 @@ namespace FormOCR
                 nameList.Add("Source"); imgList.Add(new System.Drawing.Bitmap(SrcImageList[pageIndex]));
 
                 using (Mat gray = new Mat())
+                using (Mat gray2 = new Mat())
                 using (Mat edges = new Mat())
                 using (Mat dst = new Mat())
                 using (Mat kernel = Cv2.GetStructuringElement(MorphShapes.Rect, new Size(3, 3)))
@@ -124,13 +128,14 @@ namespace FormOCR
                     //nameList.Add("Canny"); Cv2.Canny(gray, edges, 1, 100, 3); imgList.Add(BitmapConverter.ToBitmap(edges));
                     //nameList.Add("Dilate"); Cv2.Dilate(gray, gray, kernel); imgList.Add(BitmapConverter.ToBitmap(gray));
                     //nameList.Add("Erode"); Cv2.Erode(gray, gray, kernel); imgList.Add(BitmapConverter.ToBitmap(gray));
-                    nameList.Add("Threshold"); Cv2.Threshold(gray, edges, 0, 255, ThresholdTypes.Otsu); imgList.Add(BitmapConverter.ToBitmap(edges));
-                    nameList.Add("BitwiseNot"); Cv2.BitwiseNot(edges, dst); imgList.Add(BitmapConverter.ToBitmap(dst));
+                    //nameList.Add("ColorInversion"); Cv2.Subtract(new Scalar(255), gray,  gray2); imgList.Add(BitmapConverter.ToBitmap(gray2));
+
+                    nameList.Add("Threshold"); Cv2.Threshold(gray, dst, Threshold1, Threshold2, ThresholdTypesValue); imgList.Add(BitmapConverter.ToBitmap(dst));
                     //nameList.Add("CvtColor"); Cv2.CvtColor(dst, gray, ColorConversionCodes.BGR2GRAY); imgList.Add(BitmapConverter.ToBitmap(gray));
                     //nameList.Add("Erode"); Cv2.Erode(dst, dst, kernel); imgList.Add(BitmapConverter.ToBitmap(dst));
-                    nameList.Add("HoughLineP"); Cv2_GetHoughLineP_Image(dst); imgList.Add(BitmapConverter.ToBitmap(dst));
+                    nameList.Add("HoughLineP");Cv2_GetHoughLineP_Image(dst); imgList.Add(BitmapConverter.ToBitmap(dst));
                     //nameList.Add("Erode"); Cv2.Erode(dst, dst, kernel); imgList.Add(BitmapConverter.ToBitmap(dst));
-                    nameList.Add("Dilate"); Cv2.Dilate(dst, dst, kernel); imgList.Add(BitmapConverter.ToBitmap(dst));
+                    //nameList.Add("Dilate"); Cv2.Dilate(dst, dst, kernel); imgList.Add(BitmapConverter.ToBitmap(dst));
                     Cv2.FindContours(dst, out contours, out hierarchy, RetrievalModes.Tree, ContourApproximationModes.ApproxSimple);
                 }
 
@@ -252,6 +257,7 @@ namespace FormOCR
         public double HoughMinLineLength = 20;
         public double HoughMaxLineGap = 3;
         public double HoughRangeD = 10.0;
+        public int HoughLineThickness = 4;
 
         private void Cv2_GetHoughLineP_Image(Mat src)
         {
@@ -267,7 +273,7 @@ namespace FormOCR
 
                 if ((angle >= 0 - HoughRangeD && angle <= 0 + HoughRangeD) || (angle >= 90 - HoughRangeD && angle <= 90 + HoughRangeD))
                 {
-                    src.Line(line.P1, line.P2, Scalar.White, 4);
+                    src.Line(line.P1, line.P2, Scalar.White, HoughLineThickness);
                 }
             }
         }

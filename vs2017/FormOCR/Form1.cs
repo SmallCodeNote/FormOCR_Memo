@@ -271,6 +271,17 @@ namespace FormOCR
             dataGridView_WhiteList.Columns[1].Width = colWidth / 2;
         }
 
+        private void trackBar_Threshold_ValueChanged(object sender, EventArgs e)
+        {
+            int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
+            double value = trackBar_Threshold1.Value;
+            label_Threshold1.Text = "Threshold1 : " + value.ToString();
+            OCR.Threshold1 = value;
+
+            ProcessImageListUpdate();
+            MainPictureBoxUpdate();
+        }
+
         private void trackBar_HoughRho_ValueChanged(object sender, EventArgs e)
         {
             int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
@@ -485,6 +496,44 @@ namespace FormOCR
                     OCR.ProcessImageList[pageIndex][viewIndex].Save(savename);
                 }
             }
+        }
+
+        private void comboBox_ThresholdTypes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox_ThresholdTypes.SelectedIndex)
+            {
+                case 0: OCR.ThresholdTypesValue = ThresholdTypes.Binary; break;
+                case 1: OCR.ThresholdTypesValue = ThresholdTypes.BinaryInv; break;
+                case 2: OCR.ThresholdTypesValue = ThresholdTypes.Mask; break;
+                case 3: OCR.ThresholdTypesValue = ThresholdTypes.Otsu; break;
+                case 4: OCR.ThresholdTypesValue = ThresholdTypes.Tozero; break;
+                case 5: OCR.ThresholdTypesValue = ThresholdTypes.TozeroInv; break;
+                case 6: OCR.ThresholdTypesValue = ThresholdTypes.Triangle; break;
+                case 7: OCR.ThresholdTypesValue = ThresholdTypes.Trunc; break;
+                default: OCR.ThresholdTypesValue = ThresholdTypes.Binary; break;
+            }
+        }
+
+        private void trackBar_Threshold2_ValueChanged(object sender, EventArgs e)
+        {
+            int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
+            double value = trackBar_Threshold1.Value;
+            label_Threshold2.Text = "Threshold2 : " + value.ToString();
+            OCR.Threshold2 = value;
+
+            ProcessImageListUpdate();
+            MainPictureBoxUpdate();
+        }
+
+        private void trackBar_HoughLineThickness_ValueChanged(object sender, EventArgs e)
+        {
+            int pageIndex = toolStripComboBox_PageSelector.SelectedIndex;
+            int value = trackBar_HoughLineThickness.Value;
+            label_HoughLineThickness.Text = "Thickness : " + value.ToString();
+            OCR.HoughLineThickness = value;
+
+            ProcessImageListUpdate();
+            MainPictureBoxUpdate();
         }
     }
 }
